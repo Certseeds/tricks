@@ -5,8 +5,8 @@ set -eoux pipefail
  # @Organization: SUSTech
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
- # @LastEditors  : nanoseeds
- # @LastEditTime : 2020-02-14 20:34:33
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2020-02-20 19:23:41
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1
@@ -83,6 +83,16 @@ if [[ ${stage} -le 11 ]]; then
   sudo chmod 0777 /run/screen
 fi
 finish 11
+if [[ ${stage} -le 12 ]]; then
+  sudo apt-get install gcc || exit 1
+  sudo apt-get install g++ || exit 1
+  sudo apt-get install gdb || exit 1
+  sudo apt-get install zip || exit 1
+  sudo apt-get install tree || exit 1
+  sudo apt-get install make || exit 1
+  sudo apt-get install cmake || exit 1
+fi
+finish 12
 }
-main 11 || exit 1
+main 12 || exit 1
 # better do it by self: "source ~/.zshrc"
