@@ -10,7 +10,7 @@ date("HH:mm:ss")
 
 java:
 ``` java
-/*
+/**
  * @Github: https://github.com/Certseeds
  * @Organization: SUSTech
  * @Author: ${USER}
@@ -26,12 +26,12 @@ build a file-header.py in include and add it in py pyunit.
 ``` python
 #!/usr/bin/env python3
 # coding=utf-8
-'''
+"""
 @Github: https://github.com/Certseeds
 @Organization: SUSTech
 @Author: ${USER}
 @Date: ${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTE}:${SECOND} 
 @LastEditors  : ${USER}
 @LastEditTime : ${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTE}:${SECOND} 
-'''
+"""
 ```

@@ -6,7 +6,7 @@ set -eoux pipefail
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-02-26 18:32:41
+ # @LastEditTime: 2020-03-03 22:05:35
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1;
@@ -94,6 +94,7 @@ if [[ ${stage} -le 12 ]]; then
     sudo apt-get install htop || exit 1;
     sudo apt-get install make || exit 1;
     sudo apt-get install cmake || exit 1;
+    sudo apt-get install openjdk-11-jdk || exit 1;
 fi
 finish 12
 if [[ ${stage} -le 13 ]]; then
