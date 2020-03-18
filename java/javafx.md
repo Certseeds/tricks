@@ -20,4 +20,4 @@
 
 another way is that:
 1. 使用maven,引入本地库,并确保scope为system,各自添加systemPath
-2. 同上4,5,6b部.
+2. 同上4,5,6部.
