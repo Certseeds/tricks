@@ -1,10 +1,10 @@
 <!--
- * @Github: https://github.com/Certseeds
+ * @Github: https://github.com/Certseeds/tricks
  * @Organization: SUSTech
  * @Author: nanoseeds
  * @Date: 2020-02-04 13:08:54
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-02-23 22:59:50
+ * @LastEditTime: 2020-03-19 18:53:18
  -->
 # tricks
 模板,规则,操作以及设定.

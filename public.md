@@ -1,10 +1,10 @@
 <!--
- * @Github: https://github.com/Certseeds
+ * @Github: https://github.com/Certseeds/tricks
  * @Organization: SUSTech
  * @Author: nanoseeds
  * @Date: 2020-02-04 13:16:15
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-06 08:43:00
+ * @LastEditTime: 2020-03-19 18:53:00
  -->
 1. 使用 readme.md,license.md,.gitignore,.gitattributes.
 2. 进行版本管理.
