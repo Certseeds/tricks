@@ -4,7 +4,7 @@
 ## @Author: nanoseeds
 ## @Date: 2020-02-04 12:40:09
 ## @LastEditors: nanoseeds
-## @LastEditTime: 2020-03-18 17:57:33
+## @LastEditTime: 2020-03-20 16:37:17
 ### 
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
@@ -141,3 +141,4 @@ $RECYCLE.BIN/
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 softwares/
+CVs/

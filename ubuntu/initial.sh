@@ -6,7 +6,7 @@ set -eoux pipefail
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-03-03 22:05:35
+ # @LastEditTime: 2020-03-22 20:08:23
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1;
@@ -118,8 +118,15 @@ if [[ ${stage} -le 14 ]]; then
     confa config --show_channel_urls yes || exit 1;
 fi
 finish 14
+if [[ ${stage} -le 15 ]]; then
+    sudo sed -i '/Port /c Port 2222' /etc/ssh/sshd_config
+    sudo sed -i '/ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0' /etc/ssh/sshd_config
+    sudo sed -i '/PasswordAuthentication no/c PasswordAuthentication yes' /etc/ssh/sshd_config
+    sudo service ssh restart
+fi
+finish 15
 }
-main 15 || exit 1;
+main 16 || exit 1;
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
