@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-25 10:01:18
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-25 10:05:37
+ * @LastEditTime: 2020-03-25 10:14:44
  -->'
 ## windows
 1. 使用Github desktop 自带的git.exe,  
@@ -26,3 +26,4 @@ Host ssh.github.com
     ProxyCommand connect socks5://127.0.0.1:1080 %h %p
 ```
 3. 配置好ssh config文件后,不需要管理ssh-add,建议重启一下,开机后直接使用即可.
+4. Update 1:似乎上述ssh代理没用,还是得开全局.
