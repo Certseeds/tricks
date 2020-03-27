@@ -4,12 +4,12 @@
  * @Author: nanoseeds
  * @Date: 2020-02-04 13:08:54
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-19 18:53:18
+ * @LastEditTime: 2020-03-27 16:58:02
  -->
 # tricks
 模板,规则,操作以及设定.
 
-[![AGPL3.0 Licence](https://img.shields.io/github/license/Certseeds/tricks?color=%23FF3300)](https://opensource.org/licenses/AGPL-3.0)  
+[![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange)](https://creativecommons.org/licenses/by-nc-sa/4.0/)  
 
 [![language](https://img.shields.io/github/languages/top/Certseeds/tricks?color=%23330099)]() 
 
@@ -18,3 +18,9 @@
 [![code size](https://img.shields.io/github/languages/code-size/Certseeds/tricks?color=%230099CC)]() 
 
 [![repo size](https://img.shields.io/github/repo-size/Certseeds/tricks?color=%23CC9900)]()
+
+[![CC BY-SA 4.0][cc_by_nc_sa_4_0_image]][cc_by_nc_sa_4_0]
+
+[cc_by_nc_sa_4_0]: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+[cc_by_nc_sa_4_0_image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
