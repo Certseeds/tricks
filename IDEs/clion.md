@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-26 10:11:47
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-26 12:31:38
+ * @LastEditTime: 2020-03-26 16:15:29
  -->
 ## FileHeader
 ### Live Template
@@ -47,5 +47,12 @@ $DATE$ $TIME$
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
     */
 ```
+#### 头文件的保护
+"File"-"setting"-"Editor"-"Code-Style'- \
+"C/C++"-"Naming Convention"-"Header Guard Style":
+`${PROJECT_NAME}_${PROJECT_REL_PATH}_${FILE_NAME}_${EXT}`
+Example:
+project aaa,in folder module1/src/bb/d.
+it should be `AAA_MODULE1_SRC_BB_D_H`
 ## Encode
 1. File-setting-Editor-File_Encodings all set to UTF-8
