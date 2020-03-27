@@ -4,12 +4,12 @@
  * @Author: nanoseeds
  * @Date: 2020-02-04 13:08:54
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-27 16:58:02
+ * @LastEditTime: 2020-03-27 17:00:32
  -->
 # tricks
 模板,规则,操作以及设定.
 
-[![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange)](https://creativecommons.org/licenses/by-nc-sa/4.0/)  
+[![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange)][cc_by_nc_sa_4_0]  
 
 [![language](https://img.shields.io/github/languages/top/Certseeds/tricks?color=%23330099)]() 
 
