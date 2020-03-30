@@ -6,7 +6,7 @@ set -eoux pipefail
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-03-22 20:08:23
+ # @LastEditTime: 2020-03-30 22:23:38
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1;
@@ -58,7 +58,9 @@ fi
 finish 7
 if [[ ${stage} -le 8 ]]; then
     echo "$0 stage 8 download zsh-syntax-highlighting itself";
-    git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight0ing || exit 1;
+    # git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight0ing || exit 1;
+    git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh}/plugins/zsh-syntax-highlighting || exit 1;
+
 fi
 finish 8
 if [[ ${stage} -le 9 ]]; then
