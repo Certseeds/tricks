@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-26 10:11:47
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-26 16:15:29
+ * @LastEditTime: 2020-04-08 01:37:50
  -->
 ## FileHeader
 ### Live Template
@@ -30,7 +30,7 @@ $DATE$ $TIME$
 ```
 #### `LICENSE.h`
 ``` cpp
-/* ${PROJECT_NAME} 
+/*  ${PROJECT_NAME} 
     Copyright (C) ${YEAR}  ${USER}
 
     ${PROJECT_NAME} is free software: you can redistribute it and/or modify

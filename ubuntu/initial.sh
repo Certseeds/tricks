@@ -6,7 +6,7 @@ set -eoux pipefail
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-03-30 22:23:38
+ # @LastEditTime: 2020-04-01 15:02:05
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1;
@@ -96,6 +96,7 @@ if [[ ${stage} -le 12 ]]; then
     sudo apt-get install htop || exit 1;
     sudo apt-get install make || exit 1;
     sudo apt-get install cmake || exit 1;
+    sudo apt-get source glibc || exit 1;
     sudo apt-get install openjdk-11-jdk || exit 1;
 fi
 finish 12
@@ -127,6 +128,13 @@ if [[ ${stage} -le 15 ]]; then
     sudo service ssh restart
 fi
 finish 15
+if [[ ${stage} -le 16 ]]; then
+    sudo sed -i '/Port /c Port 2222' /etc/ssh/sshd_config
+    sudo sed -i '/ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0' /etc/ssh/sshd_config
+    sudo sed -i '/PasswordAuthentication no/c PasswordAuthentication yes' /etc/ssh/sshd_config
+    sudo service ssh restart
+fi
+finish 16
 }
 main 16 || exit 1;
 # do it after the all script!
