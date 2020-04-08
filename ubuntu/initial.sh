@@ -6,7 +6,11 @@ set -eoux pipefail
  # @Author: nanoseeds
  # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
+<<<<<<< HEAD
  # @LastEditTime: 2020-04-01 15:02:05
+=======
+ # @LastEditTime: 2020-03-30 22:23:38
+>>>>>>> 780150eb453d406e510e26cc5b062c9d68ea99c7
  ###
 finish(){
   echo "${0} ${1} finish" || exit 1;
@@ -128,6 +132,7 @@ if [[ ${stage} -le 15 ]]; then
     sudo service ssh restart
 fi
 finish 15
+<<<<<<< HEAD
 if [[ ${stage} -le 16 ]]; then
     sudo sed -i '/Port /c Port 2222' /etc/ssh/sshd_config
     sudo sed -i '/ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0' /etc/ssh/sshd_config
@@ -135,6 +140,8 @@ if [[ ${stage} -le 16 ]]; then
     sudo service ssh restart
 fi
 finish 16
+=======
+>>>>>>> 780150eb453d406e510e26cc5b062c9d68ea99c7
 }
 main 16 || exit 1;
 # do it after the all script!
