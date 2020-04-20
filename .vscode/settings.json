@@ -2,19 +2,20 @@
     "fileheader.configObj": {
         "createFileTime": true,
         "language": {
-            "gitattributes":{
-                "head":"### ",
-                "middle":" # @",
-                "end":"### "
+            "gitattributes": {
+                "head": "### ",
+                "middle": " # @",
+                "end": "### "
             },
-            "gitignore":{
-                "head":"### ",
-                "middle":"## @",
-                "end":"### "
-            },"md":{
-                "head":"<!--",
-                "middle":" * @",
-                "end":" * @License: CC-BY-NC-SA_V4_0 or any later version \n -->"
+            "gitignore": {
+                "head": "### ",
+                "middle": "## @",
+                "end": "### "
+            },
+            "md": {
+                "head": "<!--",
+                "middle": " * @",
+                "end": " * @License: CC-BY-NC-SA_V4_0 or any later version \n -->"
             }
         },
         "autoAdd": true,
@@ -30,10 +31,10 @@
             "php": 2,
             "py": 0,
             "java": 0,
-            "c" :0,
+            "c": 0,
             "cpp": 0,
-            "sh" :0,
-            "h" :0
+            "sh": 0,
+            "h": 0
         },
         "beforeAnnotation": {
             "py": "#!/usr/bin/env python3\n# coding=utf-8",
@@ -45,7 +46,10 @@
             "newlineAddAnnotation": true
         },
         "prohibitAutoAdd": [
-            "json","md","wav","xml"
+            "json",
+            "md",
+            "wav",
+            "xml"
         ],
         "moveCursor": true,
         "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -60,7 +64,7 @@
         "CheckFileChange": false
     },
     "fileheader.customMade": {
-        "Github":"https://github.com/Certseeds/tricks",
+        "Github": "https://github.com/Certseeds/tricks",
         "Organization": "SUSTech",
         "Author": "nanoseeds",
         "Date": "Do not edit",

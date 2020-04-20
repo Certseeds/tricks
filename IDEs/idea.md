@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-26 10:04:50
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-26 11:45:53
+ * @LastEditTime: 2020-04-18 17:33:17
  -->
 ## FileHeader
 ### Live Template
@@ -30,7 +30,7 @@ $DATE$ $TIME$
 ```
 #### `LICENSE.java`
 ``` java
- /* ${PROJECT_NAME} 
+/*  ${PROJECT_NAME} 
     Copyright (C) ${YEAR}  ${USER}
 
     ${PROJECT_NAME} is free software: you can redistribute it and/or modify
