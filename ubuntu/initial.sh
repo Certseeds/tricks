@@ -1,14 +1,14 @@
 #!/bin/bash
 set -eoux pipefail
 ###
- # @Github: https://github.com/Certseeds
- # @Organization: SUSTech
- # @Author: nanoseeds
- # @Date: 2020-02-14 12:03:47
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-04-20 16:53:47
+# @Github: https://github.com/Certseeds
+# @Organization: SUSTech
+# @Author: nanoseeds
+# @Date: 2020-02-14 12:03:47
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-05-02 11:15:30
 ###
-finish() { 
+finish() {
     echo "${0} ${1} finish" || exit 1
 }
 main() {
@@ -23,6 +23,11 @@ main() {
     if [[ ${stage} -le 2 ]]; then
         echo "$0 stage 2 replace"
         sudo sed -i "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list || exit 1
+        pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+        # TODO add
+        # alias sudo='sudo env PATH=$PATH'
+        # to ./zshrc
+        # TODO source ~/.zshrc
     fi
     finish 2
     if [[ ${stage} -le 3 ]]; then
@@ -94,9 +99,10 @@ main() {
         sudo apt-get install tree || exit 1
         sudo apt-get install htop || exit 1
         sudo apt-get install make || exit 1
-        sudo apt-get install cmake || exit 1
+        sudo apt-get install ffmpeg || exit 1
         sudo apt-get source glibc || exit 1
         sudo apt-get install openjdk-11-jdk || exit 1
+        sudo pip install cmake==3.16.6 || exit 1
     fi
     finish 12
     if [[ ${stage} -le 13 ]]; then
@@ -134,6 +140,23 @@ main() {
         sudo service ssh restart
     fi
     finish 16
+    if [[ ${stage} -le 17 ]]; then
+        # install dependency of opencv.
+        sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+        sudo apt update
+        sudo apt-get install git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+        # install opencv
+        cd ~
+        wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
+        tar -vxf opencv--3.4.10.tar.gz
+        mkdir build_dir
+        cd build_dir
+        cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+        make -j6
+        make install
+        # then, lib is in  /usr/local/include/opencv2
+    fi
+    finish 17
 }
 main 16 || exit 1
 # do it after the all script!
