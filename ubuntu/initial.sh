@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
 # @LastEditors: nanoseeds
-# @LastEditTime: 2020-05-02 11:15:30
+# @LastEditTime: 2020-05-03 22:04:16
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -157,8 +157,23 @@ main() {
         # then, lib is in  /usr/local/include/opencv2
     fi
     finish 17
+    if [[ ${stage} -le 18 ]]; then
+        # Download shellcheck newest
+        envi=$(pwd)
+        cd ~/
+        mkdir ~/tmp_install_folder/
+        wget -P ~/tmp_install_folder/ https://github.com/koalaman/shellcheck/releases/download/latest/shellcheck-latest.linux.x86_64.tar.xz
+        # Extract
+        tar xvf ~/tmp_install_folder/shellcheck-latest.linux.x86_64.tar.xz -C ~/tmp_install_folder
+        # Make it globally available
+        cp ~/tmp_install_folder/shellcheck-latest/shellcheck /usr/bin/shellcheck
+        # Cleanup
+        rm -r ~/tmp_install_folder
+        cd "${envi}"
+    fi
+    finish 18
 }
-main 16 || exit 1
+main 18 || exit 1
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"

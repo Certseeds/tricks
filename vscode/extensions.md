@@ -12,7 +12,8 @@
 |          |              vscode icons |
 |          |            Word Count CJK |
 | python   |             autoDocstring |
-| shell    |              shell-format |
+| shell    |                shellcheck |
+|          |              shell-format |
 |          |                  shellman |
 | markdown |       Markdown All in One |
 |          | Markdown Preview Enhanced |

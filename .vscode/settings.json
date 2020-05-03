@@ -71,5 +71,9 @@
         "LastEditors": "nanoseeds",
         "LastEditTime": "Do not edit"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "shellcheck.enable": true, // 安装以后默认就是激活的
+    "shellcheck.executablePath": "/usr/bin/shellcheck", // 也可以是shellcheck
+    "shellcheck.run": "onType", // "onType"敲击键盘的时候检查，onSave是保存文件时候检查
+    "shellcheck.useWSL": true
 }
