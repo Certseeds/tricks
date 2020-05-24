@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
-# @LastEditors: nanoseeds
-# @LastEditTime: 2020-05-03 22:04:16
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2020-05-03 22:09:06
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -14,7 +14,7 @@ finish() {
 main() {
     echo "$0 stage 0 init"
     stage=$1
-    echo ${stage}
+    echo "${stage}"
     if [[ ${stage} -le 1 ]]; then
         echo "$0 stage 1 backup"
         sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup || exit 1
@@ -63,13 +63,13 @@ main() {
     if [[ ${stage} -le 8 ]]; then
         echo "$0 stage 8 download zsh-syntax-highlighting itself"
         # git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight0ing || exit 1;
-        git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh}/plugins/zsh-syntax-highlighting || exit 1
+        git clone https://gitee.com/zgq0301/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-syntax-highlighting || exit 1
 
     fi
     finish 8
     if [[ ${stage} -le 9 ]]; then
         echo "$0 stage 9 download zsh-autosuggestions itself"
-        git clone https://gitee.com/itgeeker/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh}/plugins/zsh-autosuggestions || exit 1
+        git clone https://gitee.com/itgeeker/zsh-autosuggestions.git "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-autosuggestions || exit 1
     fi
     finish 9
     if [[ ${stage} -le 10 ]]; then
