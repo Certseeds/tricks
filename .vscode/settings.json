@@ -76,5 +76,6 @@
     "shellcheck.executablePath": "/usr/bin/shellcheck", // 也可以是shellcheck
     "shellcheck.run": "onType", // "onType"敲击键盘的时候检查，onSave是保存文件时候检查
     "shellcheck.useWSL": true,
-    "shellcheck.enableQuickFix": true
+    "shellcheck.enableQuickFix": true,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}"
 }

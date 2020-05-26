@@ -2,11 +2,12 @@
  * @Github: https://github.com/Certseeds/tricks
  * @Organization: SUSTech
  * @Author: nanoseeds
- * @Date: 2020-03-26 11:25:52
+ * @Date: 2020-03-26 10:11:47
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-03-26 12:07:55
+ * @LastEditTime: 2020-05-26 20:42:22
  -->
 ## FileHeader
+
 ### Live Template
 "setting"-"editor"-"file-and-code-templates"-"include"
 add it to the File-header.
@@ -17,23 +18,24 @@ $DATE$ $TIME$
 // DATE: date("yyyy-MM-dd")
 // TIME: date("HH:mm:ss")
 ```
+
 ### File and Code Templates
-build a `file-header.py` in include and add it in py pyunit.  
-#### `File-Header.py`
-``` python
-#!/usr/bin/env python3
-# coding=utf-8
-"""
-@Github: https://github.com/Certseeds
-@Organization: SUSTech
-@Author: ${USER}
-@Date: ${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTE}:${SECOND} 
-@LastEditors  : ${USER}
-"""
+
+#### `C File Header.h`
+``` cpp
+/**
+ * @Github: https://github.com/Certseeds/${PROJECT_NAME}
+ * @Organization: SUSTech
+ * @Author: ${USER}
+ * @Date: ${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTE}:${SECOND} 
+ * @LastEditors  : ${USER}
+ */
 ```
-#### `LICENSE.py`
-``` python
-""" ${PROJECT_NAME} 
+
+#### `LICENSE.h`
+
+``` cpp
+/*  ${PROJECT_NAME} 
     Copyright (C) ${YEAR}  ${USER}
 
     ${PROJECT_NAME} is free software: you can redistribute it and/or modify
@@ -48,7 +50,24 @@ build a `file-header.py` in include and add it in py pyunit.
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
+    */
 ```
+
+#### 头文件的保护
+"File"-"setting"-"Editor"-"Code-Style'- \
+"C/C++"-"Naming Convention"-"Header Guard Style":
+`${PROJECT_NAME}_${PROJECT_REL_PATH}_${FILE_NAME}_${EXT}`
+Example:
+project aaa,in folder module1/src/bb/d.
+it should be `AAA_MODULE1_SRC_BB_D_H`
+
 ## Encode
 1. File-setting-Editor-File_Encodings all set to UTF-8
+
+## Plugin
+| language |             tools |
+| :------- | ----------------: |
+|          |           .ignore |
+|          |  Rainbow Brackets |
+|          |  Makefile support |
+|          | License Generator |

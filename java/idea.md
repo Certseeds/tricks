@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-26 10:04:50
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-04-18 17:33:17
+ * @LastEditTime: 2020-05-26 20:35:45
  -->
 ## FileHeader
 ### Live Template
@@ -49,6 +49,7 @@ $DATE$ $TIME$
 ```
 ## Encode
 1. File-setting-Editor-File_Encodings all set to UTF-8
+
 ## Problem and Solution.
 #### 1. Idea加载Project名加载错误
 (常出现于有子模块时,识别文件名为子模块)
@@ -67,3 +68,12 @@ egs:
     </option>
 ```
 originFiles即为Project的pom.xml,ignoredFiles为想要忽略的.
+
+## Plugin
+| language |             tools |
+| :------- | ----------------: |
+|          |           .ignore |
+|          |           JavaDoc |
+|          |            Kotlin |
+|          | License Generator |
+|          |  Rainbow Brackets |
