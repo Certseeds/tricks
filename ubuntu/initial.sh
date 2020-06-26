@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-05-03 22:09:06
+ # @LastEditTime: 2020-06-26 12:25:51
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -172,8 +172,16 @@ main() {
         cd "${envi}"
     fi
     finish 18
+    if [[ ${stage} -le 19 ]]; then
+        envi=$(pwd)
+        cd ~
+        wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
+        sudo tar -xzf go1.14.4.linux-amd64.tar.gz -C /usr/local/
+        # add GOPATH for /etc/profile and ~/.zshrc now
+        cd "${envi}"
+    fi
 }
-main 18 || exit 1
+main 19 || exit 1
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
