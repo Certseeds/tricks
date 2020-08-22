@@ -4,7 +4,7 @@
  # @Author: nanoseeds
  # @Date: 2020-02-04 13:17:43
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-03-18 17:57:25
+ # @LastEditTime: 2020-08-21 11:01:28
 ### 
 ##  generate it by 
 ##  https://www.richie-bendall.ml/gitattributes-generator/
@@ -14,7 +14,7 @@
 .gitattributes text
 .gitignore     text
 *.md           text
-
+*.backup text eol=lf
 # scripts
 *.sh text eol=lf
 *.log text eol=lf

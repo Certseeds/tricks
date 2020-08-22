@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-02-04 17:22:45
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-07-05 10:09:08
+ * @LastEditTime: 2020-08-22 18:02:08
  * @License: CC-BY-NC-SA_V4_0 or any later version 
  -->
 
@@ -13,8 +13,9 @@
 |          |                 Better Comments |
 |          |            .gitignore generator |
 |          | GitHub Pull Requests and Issues |
-|          |                     Git History |
+|          |                         GitLens |
 |          |                       Git graph |
+|          |                     Git History |
 |          |       IntelliJ IDEA Keybindings |
 |          |                       TODO Tree |
 | all      |                  koroFileHeader |
@@ -27,5 +28,7 @@
 | shell    |                      shellcheck |
 |          |                    shell-format |
 |          |                        shellman |
-| markdown |             Markdown All in One |
+| markdown |                    Markdown TOC |
+|          |             Markdown All in One |
 |          |       Markdown Preview Enhanced |
+

@@ -4,7 +4,7 @@
  * @Author: nanoseeds
  * @Date: 2020-03-26 10:11:47
  * @LastEditors: nanoseeds
- * @LastEditTime: 2020-05-26 20:42:22
+ * @LastEditTime: 2020-08-22 17:47:58
  -->
 ## FileHeader
 
@@ -51,6 +51,7 @@ $DATE$ $TIME$
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
     */
+
 ```
 
 #### 头文件的保护
@@ -65,9 +66,13 @@ it should be `AAA_MODULE1_SRC_BB_D_H`
 1. File-setting-Editor-File_Encodings all set to UTF-8
 
 ## Plugin
+
 | language |             tools |
 | :------- | ----------------: |
 |          |           .ignore |
 |          |  Rainbow Brackets |
 |          |  Makefile support |
 |          | License Generator |
+
+## Font
+Consolas + Menlo
