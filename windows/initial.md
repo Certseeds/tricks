@@ -15,3 +15,5 @@
 14. 安装Idea,安装openJdk11,配置环境变量,设置maven,测试java project.
 15. 安装Anaconda, 安装Pycharm,配置Python开发环境.换conda源
 16. 安装steam,Webstorm.
+17. 安装网易云音乐,配置音乐库.
+18. 安装gpg4win,配置wsl&windows端的gpg.
