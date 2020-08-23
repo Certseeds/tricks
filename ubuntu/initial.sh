@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-22 18:11:02
+ # @LastEditTime: 2020-08-23 22:06:53
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -101,6 +101,7 @@ main() {
         sudo apt-get install libssl-dev
         sudo apt-get install openssl
         sudo apt-get install net-tools
+        sudo apt install exiftool
         sudo pip3 install cmake==3.16.6 || exit 1
         sudo apt-get source glibc || exit 1
     fi
