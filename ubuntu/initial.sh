@@ -5,11 +5,11 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
-# @LastEditors: nanoseeds
-# @LastEditTime: 2020-08-27 21:10:12
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2020-08-27 22:57:45
 ###
 finish() {
-    echo "${0} ${1} finish" || exit 1
+    echo "${0} ${1} finish"
 }
 add_apt_vscode() {
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >microsoft.gpg
@@ -24,38 +24,48 @@ main_0() {
 }
 main_1() {
     # backup so
-    sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup || exit 1
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
     sudo cp ./sources_aliyun_2004.list.backup /etc/apt/sources.list
     main_0
 }
 main_2() {
     sudo apt install build-essential curl wget screen gdb zip tree htop \
-        make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools \
-        exiftool rename aria2 manpages-dev python3-pip -y
+        make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim \
+        exiftool rename aria2 manpages-dev python3-pip proxychains4 -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir ~/.pip
     fi
+    if [ ! -f "/etc/proxychains.conf" ]; then
+        touch /etc/proxychains.conf
+    fi
+    
     cp ./pip.conf.backup ~/.pip/pip.conf
     sudo chmod 0755 ~/.pip/pip.conf
+    pip3 config list
     sudo pip3 install cmake
 }
 main_3() {
     # download oh-my-zsh
     sudo apt install zsh -y
     sudo chsh -s "$(which zsh)"
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh --depth=1
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-syntax-highlighting --depth=1 || exit 1
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git \
-        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-autosuggestions --depth=1 || exit 1
+    if [ -d "${HOME}/.oh-my-zsh" ]; then
+        rm -rf "${HOME}/.oh-my-zsh"
+    fi
+    
+    proxychains4 git clone https://github.com/ohmyzsh/ohmyzsh.git \
+        ~/.oh-my-zsh --depth=1
+    proxychains4 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-syntax-highlighting --depth=1
+    proxychains4 git clone https://github.com/zsh-users/zsh-autosuggestions.git \
+        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-autosuggestions --depth=1
     {
-        sudo chmod 0755 ~/.oh-my-zsh || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/custom/plugins || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/plugins || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/git || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/z || exit 1
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/zsh-autosuggestions || exit 1
+        sudo chmod 0755 ~/.oh-my-zsh
+        sudo chmod 0755 ~/.oh-my-zsh/custom/plugins
+        sudo chmod 0755 ~/.oh-my-zsh/plugins
+        sudo chmod 0755 ~/.oh-my-zsh/plugins/z
+        sudo chmod 0755 ~/.oh-my-zsh/plugins/git
+        sudo chmod 0755 ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+        sudo chmod 0755 ~/.oh-my-zsh/plugins/zsh-autosuggestions
     }
     sudo cp -i ./zshrc.backup ~/.zshrc
     #
@@ -63,20 +73,20 @@ main_3() {
 main_4() {
     # anaconda
     ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
-    wget -c https://repo.anaconda.com/archive/"${ANACONDA}" || exit 1
-    sudo chmod 0755 ./"${ANACONDA}" || exit 1
-    sudo ./"${ANACONDA}" || exit 1
-    rm ./"${ANACONDA}" || exit 1
+    proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}"
+    sudo chmod 0755 ./"${ANACONDA}"
+    sudo ./"${ANACONDA}"
+    rm ./"${ANACONDA}"
     # TODO press enter && yes now
     # TODO source ~/.zshrc
 }
 main_5() {
     # set origin of anaconda
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free || exit 1
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge || exit 1
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda || exit 1
-    conda config --set show_channel_urls yes || exit 1
-    conda config --show_channel_urls yes || exit 1
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
+    conda config --set show_channel_urls yes
+    conda config --show_channel_urls yes
 }
 main_6() {
     #wsl set port
@@ -91,13 +101,15 @@ main_7() {
     cd ~/
     if [[ ! -d "${HOME}/tmp_install_folder/" ]]; then
         mkdir ~/tmp_install_folder/
+    else
+        rm -rf ~/tmp_install_folder/
     fi
-    wget -P ~/tmp_install_folder/ \
+    proxychains4 wget -P ~/tmp_install_folder/ \
         https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"
     # Extract
     tar xvf ~/tmp_install_folder/"${SHELLCHECK}" -C ~/tmp_install_folder
     # Make it globally available
-    cp ~/tmp_install_folder/shellcheck-latest/shellcheck /usr/bin/shellcheck
+    sudo cp ~/tmp_install_folder/shellcheck-latest/shellcheck /usr/bin/shellcheck
     # Cleanup
     rm -r ~/tmp_install_folder
     cd "${envi}"
@@ -113,7 +125,7 @@ main_8() {
     # download
     {
         cd ~
-        wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
+        proxychains4 wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
         tar -vxf opencv--3.4.10.tar.gz
         if [[ ! -d "build_dir" ]]; then
             mkdir build_dir
@@ -131,19 +143,26 @@ main_9() {
     envi=$(pwd)
     cd ~
     GO_FILE_NAME="go1.15.linux-amd64.tar.gz"
-    wget https://golang.org/dl/"${GO_FILE_NAME}"
+    proxychains4 wget https://golang.org/dl/"${GO_FILE_NAME}"
     sudo tar -xzf "${GO_FILE_NAME}" -C /usr/local/
     rm "${GO_FILE_NAME}"
     # add GOPATH for /etc/profile and ~/.zshrc now
     cd "${envi}"
 }
+main_114514(){
+    sudo apt autoremove
+    sudo apt autoclean
+    sudo apt clean
+}
 main_index() {
+    main_0
     echo "$0 stage 0 init"
     for index in "$@"; do
         echo "stage ${index} init"
         main_${index}
         finish ${index}
     done
+    main_114514
     echo "main_index over"
 }
 main_index 2 3 7

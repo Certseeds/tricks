@@ -6,8 +6,9 @@ set -eo pipefail
  # @Author: nanoseeds
  # @Date: 2020-08-21 15:00:50
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 20:33:36
+ # @LastEditTime: 2020-08-27 23:24:50
 ### 
+# only work for wsl
 hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
 wslip=$(hostname -I | awk '{print $1}')
 httpport=4782
@@ -17,17 +18,7 @@ PROXY_HTTP="http://${hostip}:${httpport}"
 PROXY_SOCK="http://${hostip}:${sockport}"
 
 set_proxy(){
-    export http_proxy="${PROXY_HTTP}"
-    export HTTP_PROXY="${PROXY_HTTP}"
-
-    export https_proxy="${PROXY_HTTP}"
-    export HTTPS_proxy="${PROXY_HTTP}"
-    
-    git config --global http.proxy "${PROXY_SOCK}"
-    git config --global https.proxy "${PROXY_SOCK}"
-
-    export ALL_PROXY="${PROXY_HTTP}"
-    export all_proxy=${PROXY_HTTP}
+    sudo sed -i "65c http ${hostip} ${httpport}" /etc/proxychains4.conf
 }
 
 unset_proxy(){
