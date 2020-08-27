@@ -6,7 +6,7 @@ set -eo pipefail
  # @Author: nanoseeds
  # @Date: 2020-08-21 15:00:50
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-22 20:30:44
+ # @LastEditTime: 2020-08-27 20:33:36
 ### 
 hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
 wslip=$(hostname -I | awk '{print $1}')
