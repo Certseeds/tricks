@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 21:00:36
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-08-27 21:10:12
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -32,10 +32,12 @@ main_2() {
     sudo apt install build-essential curl wget screen gdb zip tree htop \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools \
         exiftool rename aria2 manpages-dev python3-pip -y
-    sudo pip3 install cmake
-    mkdir ~/.pip
+    if [[ ! -d "${HOME}/.pip" ]]; then
+        mkdir ~/.pip
+    fi
     cp ./pip.conf.backup ~/.pip/pip.conf
     sudo chmod 0755 ~/.pip/pip.conf
+    sudo pip3 install cmake
 }
 main_3() {
     # download oh-my-zsh
@@ -87,7 +89,9 @@ main_7() {
     envi=$(pwd)
     SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
     cd ~/
-    mkdir ~/tmp_install_folder/
+    if [[ ! -d "${HOME}/tmp_install_folder/" ]]; then
+        mkdir ~/tmp_install_folder/
+    fi
     wget -P ~/tmp_install_folder/ \
         https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"
     # Extract
@@ -111,10 +115,12 @@ main_8() {
         cd ~
         wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
         tar -vxf opencv--3.4.10.tar.gz
-        mkdir build_dir
+        if [[ ! -d "build_dir" ]]; then
+            mkdir build_dir
+        fi
         cd build_dir
         cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-        make -j 6
+        make -j "$(cat /proc/cpuinfo | grep "processor" | wc -l)"
         make install
         # TODO delete last filess
         # then, lib is in  /usr/local/include/opencv2
