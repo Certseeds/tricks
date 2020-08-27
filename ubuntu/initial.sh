@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 20:52:23
+ # @LastEditTime: 2020-08-27 21:00:36
 ###
 finish() {
     echo "${0} ${1} finish" || exit 1
@@ -19,8 +19,8 @@ add_apt_vscode() {
 main_0() {
     sudo chmod 0777 /usr/bin/screen
     sudo /etc/init.d/screen-cleanup start
-    sudo apt update
-    sudo apt upgrade
+    sudo apt update -y
+    sudo apt upgrade -y
 }
 main_1() {
     # backup so
@@ -31,7 +31,7 @@ main_1() {
 main_2() {
     sudo apt install build-essential curl wget screen gdb zip tree htop \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools \
-        exiftool rename aria2 manpages-dev python3-pip
+        exiftool rename aria2 manpages-dev python3-pip -y
     sudo pip3 install cmake
     mkdir ~/.pip
     cp ./pip.conf.backup ~/.pip/pip.conf
@@ -39,7 +39,7 @@ main_2() {
 }
 main_3() {
     # download oh-my-zsh
-    sudo apt install zsh
+    sudo apt install zsh -y
     sudo chsh -s "$(which zsh)"
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh --depth=1
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
@@ -105,7 +105,7 @@ main_8() {
     sudo apt install libgtk2.0-dev pkg-config libavcodec-dev \
         libavformat-dev libswscale-dev python-dev python-numpy libtbb2 \
         libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev \
-        libdc1394-22-dev
+        libdc1394-22-dev -y
     # download
     {
         cd ~

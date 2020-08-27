@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-08-21 18:23:17
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 20:34:01
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-08-27 20:59:32
 ###
 
 SHELL_FOLDER=$(
@@ -14,9 +14,10 @@ SHELL_FOLDER=$(
     pwd
 )
 main() {
-    . "${SHELL_FOLDER}"/set_proxy.sh
     sudo chmod 0777 /usr/bin/screen
     sudo /etc/init.d/screen-cleanup start
-    sudo apt install update
-    sudo apt install upgrade
+    sudo apt update
+    sudo apt upgrade -y
+    source "${SHELL_FOLDER}"/set_proxy.sh
 }
+main
