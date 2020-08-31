@@ -4,7 +4,7 @@
         "language": {
             "gitattributes": {
                 "head": "### ",
-                "middle": " # @",
+                "middle": "# @",
                 "end": "### "
             },
             "gitignore": {
@@ -72,9 +72,9 @@
         "LastEditTime": "Do not edit"
     },
     "git.ignoreLimitWarning": true,
-    "shellcheck.enable": true, // 安装以后默认就是激活的
-    "shellcheck.executablePath": "/usr/bin/shellcheck", // 也可以是shellcheck
-    "shellcheck.run": "onType", // "onType"敲击键盘的时候检查，onSave是保存文件时候检查
+    "shellcheck.enable": true,
+    "shellcheck.executablePath": "/usr/bin/shellcheck",
+    "shellcheck.run": "onType",
     "shellcheck.useWSL": true,
     "shellcheck.enableQuickFix": true,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",

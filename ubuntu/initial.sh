@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 22:57:45
+ # @LastEditTime: 2020-08-31 11:03:07
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -31,14 +31,15 @@ main_1() {
 main_2() {
     sudo apt install build-essential curl wget screen gdb zip tree htop \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim \
-        exiftool rename aria2 manpages-dev python3-pip proxychains4 -y
+        proxychains4 exiftool rename aria2 manpages-dev python3-pip \
+        lsb-core openssh-client openssh-server -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir ~/.pip
     fi
     if [ ! -f "/etc/proxychains.conf" ]; then
         touch /etc/proxychains.conf
     fi
-    
+
     cp ./pip.conf.backup ~/.pip/pip.conf
     sudo chmod 0755 ~/.pip/pip.conf
     pip3 config list
@@ -51,7 +52,7 @@ main_3() {
     if [ -d "${HOME}/.oh-my-zsh" ]; then
         rm -rf "${HOME}/.oh-my-zsh"
     fi
-    
+
     proxychains4 git clone https://github.com/ohmyzsh/ohmyzsh.git \
         ~/.oh-my-zsh --depth=1
     proxychains4 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
@@ -149,7 +150,29 @@ main_9() {
     # add GOPATH for /etc/profile and ~/.zshrc now
     cd "${envi}"
 }
-main_114514(){
+main_10() {
+    #only for vmware
+    sudo add_vscode install open-vm-tools
+    sudo apt install open-vm-tools-dkms
+    sudo apt install open-vm-tools-desktop
+    {
+        git clone https://github.com/rasa/vmware-tools-patches.git
+        cd vmware-tools-patches
+        sudo ./patched-open-vm-tools.sh
+    }
+    {
+        sudo modprobe vmhgfs #检测是否存在
+        lsmod | grep vmhgfs
+        sudo mkdir /mnt/hgfs　#不存在要用接下来两条挂载
+        sudo mount -t vmhgfs .host:/ /mnt/hgfs
+    }
+
+}
+main_11() {
+    #download python2 and ryus
+    sudo apt-get install python2 mininet python3-ryu iputils-arping -y
+}
+main_114514() {
     sudo apt autoremove
     sudo apt autoclean
     sudo apt clean
@@ -165,7 +188,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index 2 3 7
+main_index 2 3 7 
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
