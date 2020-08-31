@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-31 11:03:07
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-08-31 15:35:34
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -36,8 +36,8 @@ main_2() {
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir ~/.pip
     fi
-    if [ ! -f "/etc/proxychains.conf" ]; then
-        touch /etc/proxychains.conf
+    if [ ! -f "/etc/proxychains4.conf" ]; then
+        touch /etc/proxychains4.conf
     fi
 
     cp ./pip.conf.backup ~/.pip/pip.conf
@@ -188,7 +188,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index 2 3 7 
+main_index 2 3 7
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
