@@ -1,12 +1,12 @@
 #!/bin/bash
-set -eo pipefail
+set -eoux pipefail
 ###
  # @Github: https://github.com/Certseeds/tricks
  # @Organization: SUSTech
  # @Author: nanoseeds
  # @Date: 2020-08-21 15:00:50
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-08-27 23:24:50
+ # @LastEditTime: 2020-08-31 12:14:59
 ### 
 # only work for wsl
 hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
@@ -18,7 +18,8 @@ PROXY_HTTP="http://${hostip}:${httpport}"
 PROXY_SOCK="http://${hostip}:${sockport}"
 
 set_proxy(){
-    sudo sed -i "65c http ${hostip} ${httpport}" /etc/proxychains4.conf
+    sudo sed -i '$d' /etc/proxychains4.conf
+    sudo echo "http ${hostip} ${httpport}" >> /etc/proxychains4.conf
 }
 
 unset_proxy(){
@@ -28,8 +29,8 @@ unset_proxy(){
     unset https_proxy
     unset HTTPS_PROXY
 
-    git config --global --unset http.proxy
-    git config --global --unset https.proxy
+    #git config --global --unset http.proxy
+    #git config --global --unset https.proxy
 
     unset ALL_PROXY
     unset all_proxy
