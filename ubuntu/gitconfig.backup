@@ -13,3 +13,5 @@
 	proxy = ${PROXY_PATH}
 [commit]
 	gpgsign = true
+[credential]
+	helper = store
