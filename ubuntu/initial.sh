@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
-# @LastEditors: nanoseeds
-# @LastEditTime: 2020-08-31 15:35:34
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2020-09-03 15:21:09
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -34,15 +34,14 @@ main_2() {
         proxychains4 exiftool rename aria2 manpages-dev python3-pip \
         lsb-core openssh-client openssh-server -y
     if [[ ! -d "${HOME}/.pip" ]]; then
-        mkdir ~/.pip
+        mkdir "${HOME}"/.pip
     fi
     if [ ! -f "/etc/proxychains4.conf" ]; then
         touch /etc/proxychains4.conf
     fi
-
-    cp ./pip.conf.backup ~/.pip/pip.conf
-    sudo chmod 0755 ~/.pip/pip.conf
-    pip3 config list
+    cp ./pip.conf.backup "${HOME}"/.pip/pip.conf
+    sudo chmod 0755 "${HOME}"/.pip/pip.conf
+    #pip3 config list
     sudo pip3 install cmake
 }
 main_3() {
@@ -52,23 +51,22 @@ main_3() {
     if [ -d "${HOME}/.oh-my-zsh" ]; then
         rm -rf "${HOME}/.oh-my-zsh"
     fi
-
     proxychains4 git clone https://github.com/ohmyzsh/ohmyzsh.git \
-        ~/.oh-my-zsh --depth=1
+        "${HOME}"/.oh-my-zsh --depth=1
     proxychains4 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-syntax-highlighting --depth=1
+        "${HOME}"/.oh-my-zsh/plugins/zsh-syntax-highlighting --depth=1
     proxychains4 git clone https://github.com/zsh-users/zsh-autosuggestions.git \
-        "${ZSH_CUSTOM:-~/.oh-my-zsh}"/plugins/zsh-autosuggestions --depth=1
+        "${HOME}"/.oh-my-zsh/plugins/zsh-autosuggestions --depth=1
     {
-        sudo chmod 0755 ~/.oh-my-zsh
-        sudo chmod 0755 ~/.oh-my-zsh/custom/plugins
-        sudo chmod 0755 ~/.oh-my-zsh/plugins
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/z
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/git
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
-        sudo chmod 0755 ~/.oh-my-zsh/plugins/zsh-autosuggestions
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/custom/plugins
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/z
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/git
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-syntax-highlighting
+        sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-autosuggestions
     }
-    sudo cp -i ./zshrc.backup ~/.zshrc
+    sudo cp -i ./zshrc.backup "${HOME}"/.zshrc
     #
 }
 main_4() {
@@ -91,6 +89,7 @@ main_5() {
 }
 main_6() {
     #wsl set port
+    # use 2222,3333 and so on.
     sudo sed -i '/Port /c Port 2222' /etc/ssh/sshd_config
     sudo sed -i '/ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0' /etc/ssh/sshd_config
     sudo sed -i '/PasswordAuthentication no/c PasswordAuthentication yes' /etc/ssh/sshd_config
@@ -99,20 +98,20 @@ main_6() {
 main_7() {
     envi=$(pwd)
     SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
-    cd ~/
+    cd "${HOME}"/
     if [[ ! -d "${HOME}/tmp_install_folder/" ]]; then
-        mkdir ~/tmp_install_folder/
+        mkdir "${HOME}"/tmp_install_folder/
     else
-        rm -rf ~/tmp_install_folder/
+        rm -rf "${HOME}"/tmp_install_folder/
     fi
-    proxychains4 wget -P ~/tmp_install_folder/ \
+    proxychains4 wget -P "${HOME}"/tmp_install_folder/ \
         https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"
     # Extract
-    tar xvf ~/tmp_install_folder/"${SHELLCHECK}" -C ~/tmp_install_folder
+    tar xvf "${HOME}"/tmp_install_folder/"${SHELLCHECK}" -C "${HOME}"/tmp_install_folder
     # Make it globally available
-    sudo cp ~/tmp_install_folder/shellcheck-latest/shellcheck /usr/bin/shellcheck
+    sudo cp "${HOME}"/tmp_install_folder/shellcheck-latest/shellcheck /usr/bin/shellcheck
     # Cleanup
-    rm -r ~/tmp_install_folder
+    rm -r "${HOME}"/tmp_install_folder
     cd "${envi}"
 }
 main_8() {
@@ -125,7 +124,7 @@ main_8() {
         libdc1394-22-dev -y
     # download
     {
-        cd ~
+        cd "${HOME}"
         proxychains4 wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
         tar -vxf opencv--3.4.10.tar.gz
         if [[ ! -d "build_dir" ]]; then
@@ -142,12 +141,12 @@ main_8() {
 main_9() {
     # set go
     envi=$(pwd)
-    cd ~
+    cd "${HOME}"
     GO_FILE_NAME="go1.15.linux-amd64.tar.gz"
     proxychains4 wget https://golang.org/dl/"${GO_FILE_NAME}"
     sudo tar -xzf "${GO_FILE_NAME}" -C /usr/local/
     rm "${GO_FILE_NAME}"
-    # add GOPATH for /etc/profile and ~/.zshrc now
+    # add GOPATH for /etc/profile and "${HOME}"/.zshrc now
     cd "${envi}"
 }
 main_10() {
@@ -171,6 +170,7 @@ main_10() {
 main_11() {
     #download python2 and ryus
     sudo apt-get install python2 mininet python3-ryu iputils-arping -y
+    #`python2` names `python` in ubuntu1804 and elders.
 }
 main_114514() {
     sudo apt autoremove
@@ -188,7 +188,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index 2 3 7
+main_index 6
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
