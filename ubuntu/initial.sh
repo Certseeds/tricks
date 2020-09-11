@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-09-03 15:21:09
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-09-04 12:03:47
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -32,7 +32,7 @@ main_2() {
     sudo apt install build-essential curl wget screen gdb zip tree htop \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim \
         proxychains4 exiftool rename aria2 manpages-dev python3-pip \
-        lsb-core openssh-client openssh-server -y
+        lsb-core openssh-client openssh-server traceroute -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
     fi
