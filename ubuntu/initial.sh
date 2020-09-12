@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
-# @LastEditors: nanoseeds
-# @LastEditTime: 2020-09-04 12:03:47
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2020-09-12 20:39:11
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -29,10 +29,10 @@ main_1() {
     main_0
 }
 main_2() {
-    sudo apt install build-essential curl wget screen gdb zip tree htop \
+    sudo apt install git build-essential curl wget screen gdb zip tree \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim \
         proxychains4 exiftool rename aria2 manpages-dev python3-pip \
-        lsb-core openssh-client openssh-server traceroute -y
+        lsb-core openssh-client openssh-server traceroute htop -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
     fi
@@ -151,7 +151,7 @@ main_9() {
 }
 main_10() {
     #only for vmware
-    sudo add_vscode install open-vm-tools
+    sudo apt install open-vm-tools
     sudo apt install open-vm-tools-dkms
     sudo apt install open-vm-tools-desktop
     {
