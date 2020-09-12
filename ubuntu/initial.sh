@@ -1,12 +1,12 @@
 #!/bin/bash
 set -eoux pipefail
 ###
-# @Github: https://github.com/Certseeds
+# @Github: https://github.com/Certseeds/tricks
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-09-12 20:39:11
+ # @LastEditTime: 2020-09-12 22:48:08
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -116,7 +116,7 @@ main_7() {
 }
 main_8() {
     # install dependency of opencv
-    sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+    sudo add-apt-repository "deb http://mirrors.aliyun.com/ubuntu/ xenial-security main"
     main_0
     sudo apt install libgtk2.0-dev pkg-config libavcodec-dev \
         libavformat-dev libswscale-dev python-dev python-numpy libtbb2 \
@@ -151,13 +151,16 @@ main_9() {
 }
 main_10() {
     #only for vmware
-    sudo apt install open-vm-tools
-    sudo apt install open-vm-tools-dkms
-    sudo apt install open-vm-tools-desktop
+    sudo apt install open-vm-tools -y
+    # sudo apt install open-vm-tools-dkms -y
+    sudo apt install open-vm-tools-desktop -y
     {
-        git clone https://github.com/rasa/vmware-tools-patches.git
+        proxychains4 git clone https://github.com/rasa/vmware-tools-patches.git
         cd vmware-tools-patches
-        sudo ./patched-open-vm-tools.sh
+        . ./setup.sh
+        ./download-tools.sh latest
+        ./untar-and-patch.sh
+        ./compile.sh
     }
     {
         sudo modprobe vmhgfs #检测是否存在
