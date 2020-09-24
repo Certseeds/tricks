@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-09-12 22:48:08
+ # @LastEditTime: 2020-09-24 20:36:55
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -30,9 +30,9 @@ main_1() {
 }
 main_2() {
     sudo apt install git build-essential curl wget screen gdb zip tree \
-        make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim \
+        make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
         proxychains4 exiftool rename aria2 manpages-dev python3-pip \
-        lsb-core openssh-client openssh-server traceroute htop -y
+        lsb-core openssh-client openssh-server traceroute htop pigz maven -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
     fi
@@ -132,7 +132,8 @@ main_8() {
         fi
         cd build_dir
         cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-        make -j "$(cat /proc/cpuinfo | grep "processor" | wc -l)"
+        #make -j "$(cat /proc/cpuinfo | grep "processor" | wc -l)"
+        make -j "$(nproc)"
         make install
         # TODO delete last filess
         # then, lib is in  /usr/local/include/opencv2
