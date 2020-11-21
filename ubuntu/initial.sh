@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-09-24 20:36:55
+ # @LastEditTime: 2020-11-09 23:10:02
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -25,7 +25,7 @@ main_0() {
 main_1() {
     # backup so
     sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-    sudo cp ./sources_aliyun_2004.list.backup /etc/apt/sources.list
+    sudo cp ./sources_aliyun_1804.list.backup /etc/apt/sources.list
     main_0
 }
 main_2() {
@@ -48,6 +48,7 @@ main_3() {
     # download oh-my-zsh
     sudo apt install zsh -y
     sudo chsh -s "$(which zsh)"
+    sudo usermod -s "$(which zsh)" "$(whoami)"
     if [ -d "${HOME}/.oh-my-zsh" ]; then
         rm -rf "${HOME}/.oh-my-zsh"
     fi
@@ -72,7 +73,9 @@ main_3() {
 main_4() {
     # anaconda
     ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
-    proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}"
+    proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}" \
+      --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
+      --no-check-certificate
     sudo chmod 0755 ./"${ANACONDA}"
     sudo ./"${ANACONDA}"
     rm ./"${ANACONDA}"
@@ -144,7 +147,7 @@ main_9() {
     envi=$(pwd)
     cd "${HOME}"
     GO_FILE_NAME="go1.15.linux-amd64.tar.gz"
-    proxychains4 wget https://golang.org/dl/"${GO_FILE_NAME}"
+    pcf wget https://golang.org/dl/"${GO_FILE_NAME}"
     sudo tar -xzf "${GO_FILE_NAME}" -C /usr/local/
     rm "${GO_FILE_NAME}"
     # add GOPATH for /etc/profile and "${HOME}"/.zshrc now
@@ -192,7 +195,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index 6
+main_index 4 5
 # do it after the all script!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"
