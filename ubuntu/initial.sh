@@ -31,7 +31,7 @@ main_1() {
 main_2() {
     sudo apt install git build-essential curl wget screen gdb zip tree \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
-        proxychains4 exiftool rename aria2 manpages-dev python3-pip \
+        proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain\
         lsb-core openssh-client openssh-server traceroute htop pigz maven -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
