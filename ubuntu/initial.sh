@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
- # @LastEditors: nanoseeds
- # @LastEditTime: 2020-11-09 23:10:02
+# @LastEditors: nanoseeds
+# @LastEditTime: 2020-11-09 23:10:02
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -29,9 +29,9 @@ main_1() {
     main_0
 }
 main_2() {
-    sudo apt install git build-essential curl wget screen gdb zip tree \
+    sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
-        proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain\
+        proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain \
         lsb-core openssh-client openssh-server traceroute htop pigz maven -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
@@ -74,8 +74,8 @@ main_4() {
     # anaconda
     ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
     proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}" \
-      --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
-      --no-check-certificate
+        --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
+        --no-check-certificate
     sudo chmod 0755 ./"${ANACONDA}"
     sudo ./"${ANACONDA}"
     rm ./"${ANACONDA}"

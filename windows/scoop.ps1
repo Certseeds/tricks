@@ -1,6 +1,8 @@
 $script = {
-    $appList = "7zip", "potplayer","openjdk11","nodejs","nvm","github","neatdownloadmanager","gpg4win","jetbrains-toolbox","sudo";
-    $scoop_bucket_list = "extras","java";
+    $appList = "7zip", "potplayer", "openjdk11", "nodejs", "nvm", "github", 
+    "neatdownloadmanager", "gpg4win", "jetbrains-toolbox", "sudo", "cmkae",
+    "dismplusplus", "wox", "everything";
+    $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
     #Main-function
     function main {
         #starting helper function
@@ -9,7 +11,7 @@ $script = {
         install
     }
 
-    function add_bucket{
+    function add_bucket {
         foreach ($item in $scoop_bucket_list) {
             scoop bucket add $item;
         }
