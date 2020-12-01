@@ -24,8 +24,8 @@ main_0() {
 }
 main_1() {
     # backup so
-    sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-    sudo cp ./sources_aliyun_1804.list.backup /etc/apt/sources.list
+    sudo mv /etc/apt/sources.list /etc/apt/sources.list.backup
+    sudo ln -s "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
 }
 main_2() {
@@ -37,9 +37,13 @@ main_2() {
         mkdir "${HOME}"/.pip
     fi
     if [ ! -f "/etc/proxychains4.conf" ]; then
-        touch /etc/proxychains4.conf
+        sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
     fi
-    cp ./pip.conf.backup "${HOME}"/.pip/pip.conf
+    if [[ ! -d "/etc/maven" ]]; then
+        mkdir -p "/etc/maven"
+        sudo ln -s "$(pwd)"/settings.xml /etc/maven/settings.xml
+    fi 
+    ln -s "$(pwd)"/pip.conf "${HOME}"/.pip/pip.conf
     sudo chmod 0755 "${HOME}"/.pip/pip.conf
     #pip3 config list
     sudo pip3 install cmake
@@ -67,7 +71,7 @@ main_3() {
         sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-syntax-highlighting
         sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-autosuggestions
     }
-    sudo cp -i ./zshrc.backup "${HOME}"/.zshrc
+    sudo ln -s "$(pwd)"/.zshrc "${HOME}"/.zshrc
     #
 }
 main_4() {
@@ -185,7 +189,8 @@ main_12() {
     sudo apt install -y nodejs
 }
 main_13(){
-    ln -s "$(pwd)"/zshrc.backup "${HOME}"/.zshrc
+    sudo ln -s "$(pwd)"/init.wsl /etc/init.wsl
+    
 }
 main_114514() {
     sudo apt autoremove
