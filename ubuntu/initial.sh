@@ -179,6 +179,14 @@ main_11() {
     sudo apt-get install python2 mininet python3-ryu iputils-arping -y
     #`python2` names `python` in ubuntu1804 and elders.
 }
+main_12() {
+    main_version_of_nodejs=14
+    curl -sL https://deb.nodesource.com/setup_"${main_version_of_nodejs}".x | sudo -E bash -
+    sudo apt install -y nodejs
+}
+main_13(){
+    ln -s "$(pwd)"/zshrc.backup "${HOME}"/.zshrc
+}
 main_114514() {
     sudo apt autoremove
     sudo apt autoclean

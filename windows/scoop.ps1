@@ -1,7 +1,7 @@
 $script = {
     $appList = "7zip", "potplayer", "openjdk11", "nodejs", "nvm", "github", 
     "neatdownloadmanager", "gpg4win", "jetbrains-toolbox", "sudo", "cmkae",
-    "dismplusplus", "wox", "everything";
+    "dismplusplus", "wox", "everything","aria2";
     $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
     #Main-function
     function main {
@@ -26,6 +26,7 @@ $script = {
         foreach ($item in $appList) {
             scoop install $item
         }
+        scoop config aria2-enabled false
     }
     function search {
         foreach ($item in $appList) {
