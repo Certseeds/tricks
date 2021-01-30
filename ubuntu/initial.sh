@@ -25,7 +25,8 @@ main_0() {
 main_1() {
     # backup so
     sudo mv /etc/apt/sources.list /etc/apt/sources.list.backup
-    sudo ln -s "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
+    #sudo ln -s "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list # this seems do not work on wsl
+    sudo cp "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
 }
 main_2() {
