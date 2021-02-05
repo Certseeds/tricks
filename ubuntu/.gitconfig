@@ -6,3 +6,5 @@
         gpgsign = true
 [alias]
         commits = commit -s
+[core]
+        editor = vim
