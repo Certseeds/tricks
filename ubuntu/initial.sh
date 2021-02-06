@@ -5,8 +5,8 @@ set -eoux pipefail
 # @Organization: SUSTech
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
-# @LastEditors: nanoseeds
-# @LastEditTime: 2020-11-09 23:10:02
+ # @LastEditors: nanoseeds
+ # @LastEditTime: 2021-02-06 10:05:32
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -43,7 +43,7 @@ main_2() {
     if [[ ! -d "/etc/maven" ]]; then
         mkdir -p "/etc/maven"
         sudo ln -s "$(pwd)"/settings.xml /etc/maven/settings.xml
-    fi 
+    fi
     ln -s "$(pwd)"/pip.conf "${HOME}"/.pip/pip.conf
     sudo chmod 0755 "${HOME}"/.pip/pip.conf
     #pip3 config list
@@ -189,9 +189,14 @@ main_12() {
     curl -sL https://deb.nodesource.com/setup_"${main_version_of_nodejs}".x | sudo -E bash -
     sudo apt install -y nodejs
 }
-main_13(){
+main_13() {
     sudo ln -s "$(pwd)"/init.wsl /etc/init.wsl
-    
+
+}
+function main_linguist() {
+    sudo apt-get install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
+    gem install github-linguist
+    # now $(github-linguist --breakdown) can use
 }
 main_114514() {
     sudo apt autoremove
