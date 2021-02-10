@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-02-06 10:05:32
+ # @LastEditTime: 2021-02-10 17:25:46
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -28,6 +28,11 @@ main_1() {
     #sudo ln -s "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list # this seems do not work on wsl
     sudo cp "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
+}
+main_git(){
+    cp ./.gitconfig "${HOME}"/.gitconfig
+    mkdir -p "${HOME}"/template
+    sudo ln -s "$(pwd)"/.gitcommit "${HOME}"/template/.gitcommit
 }
 main_2() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
@@ -84,6 +89,7 @@ main_4() {
     sudo chmod 0755 ./"${ANACONDA}"
     sudo ./"${ANACONDA}"
     rm ./"${ANACONDA}"
+    sudo ln -s "$(pwd)"/.condarc "${HOME}"/.condarc
     # TODO press enter && yes now
     # TODO source ~/.zshrc
 }
