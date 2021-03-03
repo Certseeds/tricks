@@ -1,6 +1,8 @@
 $script = {
-    $appList = "7zip", "potplayer", "openjdk11", "nodejs", "nvm", "github", 
-    "neatdownloadmanager", "gpg4win", "jetbrains-toolbox", "sudo", "cmkae",
+    $appList = "7zip", "potplayer", 
+    "adoptopenjdk-lts-hotspot" # at least now it is 11
+    , "nodejs", "nvm", "github", 
+    "neatdownloadmanager", "gpg4win", "jetbrains-toolbox", "sudo", "cmake",
     "dismplusplus", "wox", "everything","aria2","mysql","oh-my-posh";
     $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
     #Main-function
