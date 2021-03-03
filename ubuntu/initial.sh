@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-02-10 17:25:46
+ # @LastEditTime: 2021-03-03 11:37:29
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -29,10 +29,17 @@ main_1() {
     sudo cp "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
 }
-main_git(){
+main_git() {
     cp ./.gitconfig "${HOME}"/.gitconfig
     mkdir -p "${HOME}"/template
     sudo ln -s "$(pwd)"/.gitcommit "${HOME}"/template/.gitcommit
+}
+main_githubcli() {
+    sudo apt install software-properties-common
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+    sudo apt-add-repository https://cli.github.com/packages
+    sudo apt update
+    sudo apt install gh
 }
 main_2() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
@@ -54,7 +61,7 @@ main_2() {
     #pip3 config list
     sudo pip3 install cmake
 }
-main_3() {
+main_ohmyzsh() {
     # download oh-my-zsh
     sudo apt install zsh -y
     sudo chsh -s "$(which zsh)"
@@ -80,7 +87,7 @@ main_3() {
     sudo ln -s "$(pwd)"/.zshrc "${HOME}"/.zshrc
     #
 }
-main_4() {
+main_anaconda() {
     # anaconda
     ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
     proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}" \
@@ -93,7 +100,7 @@ main_4() {
     # TODO press enter && yes now
     # TODO source ~/.zshrc
 }
-main_5() {
+main_condaconfig() {
     # set origin of anaconda
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
@@ -109,7 +116,7 @@ main_6() {
     sudo sed -i '/PasswordAuthentication no/c PasswordAuthentication yes' /etc/ssh/sshd_config
     sudo service ssh restart
 }
-main_7() {
+main_shellcheck() {
     envi=$(pwd)
     SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
     cd "${HOME}"/
@@ -128,7 +135,7 @@ main_7() {
     rm -r "${HOME}"/tmp_install_folder
     cd "${envi}"
 }
-main_8() {
+main_opencv3() {
     # install dependency of opencv
     sudo add-apt-repository "deb http://mirrors.aliyun.com/ubuntu/ xenial-security main"
     main_0
@@ -153,7 +160,7 @@ main_8() {
         # then, lib is in  /usr/local/include/opencv2
     }
 }
-main_9() {
+main_go() {
     # set go
     envi=$(pwd)
     cd "${HOME}"
@@ -164,7 +171,7 @@ main_9() {
     # add GOPATH for /etc/profile and "${HOME}"/.zshrc now
     cd "${envi}"
 }
-main_10() {
+main_vmware() {
     #only for vmware
     sudo apt install open-vm-tools -y
     # sudo apt install open-vm-tools-dkms -y
@@ -185,7 +192,7 @@ main_10() {
     }
 
 }
-main_11() {
+main_ryus() {
     #download python2 and ryus
     sudo apt-get install python2 mininet python3-ryu iputils-arping -y
     #`python2` names `python` in ubuntu1804 and elders.
