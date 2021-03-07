@@ -7,5 +7,6 @@
         gpgsign = true
 [alias]
         commits = commit -s
+        checkoutb = checkout -b
 [core]
         editor = vim
