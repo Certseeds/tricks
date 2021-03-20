@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-03 11:37:29
+ # @LastEditTime: 2021-03-20 12:36:16
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -41,6 +41,7 @@ main_githubcli() {
     sudo apt update
     sudo apt install gh
 }
+
 main_2() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
@@ -107,6 +108,28 @@ main_condaconfig() {
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda
     conda config --set show_channel_urls yes
     conda config --show_channel_urls yes
+}
+main_cuda() {
+    #! FIRST, install driver!!
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+    sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    # wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
+    sudo dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
+    sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
+    sudo apt-get update
+    sudo apt-get -y install cuda
+
+    conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
+}
+
+main_caffe_ssd() {
+    sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
+
+    sudo apt-get install --no-install-recommends libboost-all-dev
+
+    sudo apt-get install libopenblas-dev liblapack-dev libatlas-base-dev
+
+    sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
 }
 main_6() {
     #wsl set port
