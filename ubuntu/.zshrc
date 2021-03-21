@@ -6,6 +6,14 @@
 export PATH=/home/nanoseeds/anaconda3/bin:"${PATH}"
 #export PATH=${PATH}:/usr/local/go/bin
 export ZSH="${HOME}"/.oh-my-zsh
+
+export MANPATH=${MANPATH}:/usr/local/texlive/2020/texmf-dist/doc/man
+export INFOPATH=${INFOPATH}:/usr/local/texlive/2020/texmf-dist/doc/info
+export PATH=${PATH}:/usr/local/texlive/2020/bin/x86_64-linux
+
+
+export SDKMAN_DIR="/home/nanoseeds/.sdkman"
+[[ -s "/home/nanoseeds/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nanoseeds/.sdkman/bin/sdkman-init.sh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -107,4 +115,22 @@ source ${ZSH}/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #eval "$(ssh-agent -s)"
 #ssh-add "${HOME}"/.ssh/id_rsa_desktop_ubt1804
-eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/id_rsa_desktop_ubt1804)
+eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/id_rsa_github_desktop_2system_ubuntu1804)
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/nanoseeds/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/nanoseeds/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/nanoseeds/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/nanoseeds/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

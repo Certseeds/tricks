@@ -11,14 +11,14 @@ set -eoux pipefail
 finish() {
     echo "${0} ${1} finish"
 }
-add_apt_vscode() {
+main_vscode() {
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >microsoft.gpg
     sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 }
 main_0() {
-    sudo chmod 0777 /usr/bin/screen
-    sudo /etc/init.d/screen-cleanup start
+    #sudo chmod 0777 /usr/bin/screen
+    # sudo /etc/init.d/screen-cleanup start
     sudo apt update -y
     sudo apt upgrade -y
 }
@@ -29,20 +29,7 @@ main_1() {
     sudo cp "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
 }
-main_git() {
-    cp ./.gitconfig "${HOME}"/.gitconfig
-    mkdir -p "${HOME}"/template
-    sudo ln -s "$(pwd)"/.gitcommit "${HOME}"/template/.gitcommit
-}
-main_githubcli() {
-    sudo apt install software-properties-common
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-    sudo apt-add-repository https://cli.github.com/packages
-    sudo apt update
-    sudo apt install gh
-}
-
-main_2() {
+main_build() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
         make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
         proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain \
@@ -62,6 +49,19 @@ main_2() {
     #pip3 config list
     sudo pip3 install cmake
 }
+main_git() {
+    cp ./.gitconfig "${HOME}"/.gitconfig
+    mkdir -p "${HOME}"/template
+    sudo ln -s "$(pwd)"/.gitcommit "${HOME}"/template/.gitcommit
+}
+main_githubcli() {
+    sudo apt install software-properties-common
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+    sudo apt-add-repository https://cli.github.com/packages
+    sudo apt update
+    sudo apt install gh
+}
+
 main_ohmyzsh() {
     # download oh-my-zsh
     sudo apt install zsh -y
@@ -131,6 +131,7 @@ main_caffe_ssd() {
 
     sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
 }
+
 main_6() {
     #wsl set port
     # use 2222,3333 and so on.
@@ -220,8 +221,8 @@ main_ryus() {
     sudo apt-get install python2 mininet python3-ryu iputils-arping -y
     #`python2` names `python` in ubuntu1804 and elders.
 }
-main_12() {
-    main_version_of_nodejs=14
+main_nodejs() {
+    main_version_of_nodejs=15
     curl -sL https://deb.nodesource.com/setup_"${main_version_of_nodejs}".x | sudo -E bash -
     sudo apt install -y nodejs
 }
@@ -233,6 +234,16 @@ function main_linguist() {
     sudo apt-get install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
     gem install github-linguist
     # now $(github-linguist --breakdown) can use
+}
+function main_sshkeygen(){
+    pre_path="${HOME}/.ssh/"
+    file_name="${pre_path}"/rsa_github_desktop_2system_ubuntu1804
+    ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
+    xclip -selection clipboard < ${file_name}
+    #! DONT FORGET ADD PATH to zshrc
+}
+function main_gpgkeygen(){
+    gpg --list-secret-keys --keyid-format LONG
 }
 main_114514() {
     sudo apt autoremove
@@ -250,7 +261,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index 4 5
-# do it after the all script!
+main_index $@
+# do it after the all cript!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"

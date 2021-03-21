@@ -1,4 +1,5 @@
 {
+    "terminal.integrated.fontFamily":"monospace",
     "fileheader.configObj": {
         "createFileTime": true,
         "language": {
