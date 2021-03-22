@@ -121,14 +121,17 @@ main_cuda() {
 
     conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 }
-
+main_sshd(){
+    sudo chown -R 1000:1000  "${HOME}"/.ssh/* # make sure all filex own by normal user
+    sudo chmod 0700 "${HOME}"/.ssh
+    sudo chmod 0600 "${HOME}"/.ssh/*
+    sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+    sudo ln -s "$(pwd)"/sshd_config /etc/ssh/sshd_config
+}
 main_caffe_ssd() {
-    sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
-
+    sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
     sudo apt-get install --no-install-recommends libboost-all-dev
-
     sudo apt-get install libopenblas-dev liblapack-dev libatlas-base-dev
-
     sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
 }
 

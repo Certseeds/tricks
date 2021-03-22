@@ -3,7 +3,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # in ~/
 # Path to your oh-my-zsh installation.
-export PATH=/home/nanoseeds/anaconda3/bin:"${PATH}"
+ANACONDA_DIR="${HOME}"/anaconda3
+export PATH="${ANACONDA_DIR}"/bin:"${PATH}"
+#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${ANACONDA_DIR}"/lib
+#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"/usr/lib/x86_64-linux-gnu/hdf5/serial"
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${HOME}/intel/oneapi/mkl/2021.1.1/lib/intel64"
+
 #export PATH=${PATH}:/usr/local/go/bin
 export ZSH="${HOME}"/.oh-my-zsh
 

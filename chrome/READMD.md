@@ -1,0 +1,1 @@
+FUCK CHROIUM-EDGE, `edge://settings/importData` can not import anything.
