@@ -31,15 +31,16 @@ main_1() {
 }
 main_build() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
-        make ffmpeg openjdk-11-jdk libssl-dev openssl net-tools vim xclip \
+        make ffmpeg openjdk-11-jdk openjdk-8-jdk libssl-dev openssl net-tools vim xclip \
         proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain \
         lsb-core openssh-client openssh-server traceroute htop pigz maven -y
     if [[ ! -d "${HOME}/.pip" ]]; then
         mkdir "${HOME}"/.pip
     fi
-    if [ ! -f "/etc/proxychains4.conf" ]; then
-        sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
+    if [[  -f "/etc/proxychains4.conf" ]] ;  then
+        rm /etc/proxychains4.conf
     fi
+    sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
     if [[ ! -d "/etc/maven" ]]; then
         mkdir -p "/etc/maven"
         sudo ln -s "$(pwd)"/settings.xml /etc/maven/settings.xml
@@ -63,6 +64,7 @@ main_githubcli() {
 }
 main_graphcard(){
     # fuck `graphics-drivers`, it make 440 shortcut for 450, and 430 shortcut for 440, make drivers can not use at all.
+    ls
 }
 main_ohmyzsh() {
     # download oh-my-zsh
@@ -123,8 +125,8 @@ main_cuda() {
     sudo apt install -y ./cuda/libcudnn8_8.1.1.33-1+cuda10.2_amd64.deb
     sudo apt install -y ./cuda/libcudnn8-dev_8.1.1.33-1+cuda10.2_amd64.deb
     sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
-    sudo apt-get update
-    sudo apt-get -y install cuda
+    sudo apt update
+    sudo apt -y install cuda
     conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 }
 main_sshd(){
@@ -135,10 +137,10 @@ main_sshd(){
     sudo ln -s "$(pwd)"/sshd_config /etc/ssh/sshd_config
 }
 main_caffe_ssd() {
-    sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
-    sudo apt-get install --no-install-recommends libboost-all-dev
-    sudo apt-get install libopenblas-dev liblapack-dev libatlas-base-dev
-    sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
+    sudo apt install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
+      libopenblas-dev liblapack-dev libatlas-base-dev \
+      libgflags-dev libgoogle-glog-dev liblmdb-dev
+    sudo apt install --no-install-recommends libboost-all-dev \
 }
 
 main_6() {
@@ -159,7 +161,9 @@ main_shellcheck() {
         rm -rf "${HOME}"/tmp_install_folder/
     fi
     proxychains4 wget -P "${HOME}"/tmp_install_folder/ \
-        https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"
+        https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"  \
+        --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
+        --no-check-certificate
     # Extract
     tar xvf "${HOME}"/tmp_install_folder/"${SHELLCHECK}" -C "${HOME}"/tmp_install_folder
     # Make it globally available
@@ -227,7 +231,7 @@ main_vmware() {
 }
 main_ryus() {
     #download python2 and ryus
-    sudo apt-get install python2 mininet python3-ryu iputils-arping -y
+    sudo apt install python2 mininet python3-ryu iputils-arping -y
     #`python2` names `python` in ubuntu1804 and elders.
 }
 main_nodejs() {
@@ -240,15 +244,18 @@ main_13() {
 
 }
 function main_linguist() {
-    sudo apt-get install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
+    sudo apt install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
     gem install github-linguist
     # now $(github-linguist --breakdown) can use
 }
 function main_sshkeygen(){
     pre_path="${HOME}/.ssh/"
-    file_name="${pre_path}"/rsa_github_desktop_2system_ubuntu1804
+    file_name="${pre_path}"/# what ever you want
+    github_path="${pre_path}"/github
     ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
-    xclip -selection clipboard < ${file_name}
+    sudo ln -s ${file_name} ${github_path}
+    sudo ln -s ${file_name}.pub ${github_path}.pub
+    xclip -selection clipboard < ${file_name}.pub
     #! DONT FORGET ADD PATH to zshrc
 }
 function main_gpgkeygen(){
