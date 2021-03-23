@@ -1,3 +1,4 @@
+// produce by `code --list-extensions >> vs_code_extensions_list.txt`
 2gua.rainbow-brackets
 aaron-bond.better-comments
 aeschli.vscode-css-formatter

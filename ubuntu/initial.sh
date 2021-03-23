@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-20 12:36:16
+ # @LastEditTime: 2021-03-23 17:41:39
 ###
 finish() {
     echo "${0} ${1} finish"
@@ -31,24 +31,45 @@ main_1() {
 }
 main_build() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
-        make ffmpeg openjdk-11-jdk openjdk-8-jdk libssl-dev openssl net-tools vim xclip \
-        proxychains4 exiftool rename aria2 manpages-dev python3-pip keychain \
-        lsb-core openssh-client openssh-server traceroute htop pigz maven -y
-    if [[ ! -d "${HOME}/.pip" ]]; then
-        mkdir "${HOME}"/.pip
-    fi
+        make ffmpeg libssl-dev openssl net-tools vim xclip \
+        proxychains4 exiftool rename aria2 manpages-dev  keychain \
+        lsb-core openssh-client openssh-server traceroute htop pigz -y
     if [[  -f "/etc/proxychains4.conf" ]] ;  then
         rm /etc/proxychains4.conf
     fi
     sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
-    if [[ ! -d "/etc/maven" ]]; then
-        mkdir -p "/etc/maven"
-        sudo ln -s "$(pwd)"/settings.xml /etc/maven/settings.xml
+}
+main_python3(){
+    sudo apt install python3-pip
+    mkdir -p "${HOME}"/.pip
+    pip_file_name="${HOME}/.pip/pip/conf"
+    if [[ -f "${pip_file_name}"  ]]; then
+        mv "${pip_file_name}" "${pip_file_name}.back"
     fi
-    ln -s "$(pwd)"/pip.conf "${HOME}"/.pip/pip.conf
-    sudo chmod 0755 "${HOME}"/.pip/pip.conf
-    #pip3 config list
-    sudo pip3 install cmake
+    ln -s "$(pwd)"/pip.conf "${pip_file_name}"
+    sudo chmod 0755 "${pip_file_name}"
+    sudo pip3 install cmake==3.17.2 numpy
+}
+main_jdk_mvn(){
+    sudo apt install openjdk-11-jdk openjdk-8-jdk maven
+    mkdir -p "/etc/maven"
+    settings_xml="/etc/maven/settings.xml"
+    if [[ -f "${settings_xml}" ]]; then
+        mv "${settings_xml}" "${settings_xml}.backup"
+    fi
+    sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
+}
+main_texlive(){
+    origin="$(pwd)"
+    mkdir -p ./texlive
+    mkdir -p /media/tex
+    sudo mount -t auto -o loop ./texlive.iso /media/tex
+    cd /media/tex
+    sudo ./install-tl
+    #! then should input  `I`
+    sudo umount /media/tex
+    sudo rm -r /media/tex
+    cd "${origin}"
 }
 main_git() {
     cp ./.gitconfig "${HOME}"/.gitconfig
@@ -140,7 +161,7 @@ main_caffe_ssd() {
     sudo apt install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
       libopenblas-dev liblapack-dev libatlas-base-dev \
       libgflags-dev libgoogle-glog-dev liblmdb-dev
-    sudo apt install --no-install-recommends libboost-all-dev \
+    sudo apt install --no-install-recommends libboost-all-dev 
 }
 
 main_6() {
@@ -156,7 +177,7 @@ main_shellcheck() {
     SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
     cd "${HOME}"/
     if [[ ! -d "${HOME}/tmp_install_folder/" ]]; then
-        mkdir "${HOME}"/tmp_install_folder/
+        mkdir -p "${HOME}"/tmp_install_folder/
     else
         rm -rf "${HOME}"/tmp_install_folder/
     fi
@@ -185,9 +206,7 @@ main_opencv3() {
         cd "${HOME}"
         proxychains4 wget https://codeload.github.com/opencv/opencv/tar.gz/3.4.10
         tar -vxf opencv--3.4.10.tar.gz
-        if [[ ! -d "build_dir" ]]; then
-            mkdir build_dir
-        fi
+        mkdir -p build_dir
         cd build_dir
         cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
         #make -j "$(cat /proc/cpuinfo | grep "processor" | wc -l)"
@@ -250,12 +269,12 @@ function main_linguist() {
 }
 function main_sshkeygen(){
     pre_path="${HOME}/.ssh/"
-    file_name="${pre_path}"/# what ever you want
+    file_name="${pre_path}"/YOUR_FILE_NAME
     github_path="${pre_path}"/github
     ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
-    sudo ln -s ${file_name} ${github_path}
-    sudo ln -s ${file_name}.pub ${github_path}.pub
-    xclip -selection clipboard < ${file_name}.pub
+    sudo ln -s "${file_name}" "${github_path}"
+    sudo ln -s "${file_name}".pub "${github_path}".pub
+    xclip -selection clipboard < "${file_name}".pub
     #! DONT FORGET ADD PATH to zshrc
 }
 function main_gpgkeygen(){
@@ -277,7 +296,7 @@ main_index() {
     main_114514
     echo "main_index over"
 }
-main_index $@
+main_index "$@"
 # do it after the all cript!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"

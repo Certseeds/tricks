@@ -1,2 +1,16 @@
+### 
+## @Github: https://github.com/Certseeds/tricks
+## @Organization: SUSTech
+## @Author: nanoseeds
+## @Date: 2021-03-23 12:07:20
+## @LastEditors: nanoseeds
+## @LastEditTime: 2021-03-23 17:31:19
+### 
 *
 !*.gitignore
+./cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb
+./cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb
+./cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
+./cuda-ubuntu1804.pin
+./libcudnn8_8.1.1.33-1+cuda10.2_amd64.deb
+./libcudnn8-dev_8.1.1.33-1+cuda10.2_amd64.deb
