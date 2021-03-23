@@ -3,9 +3,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # in ~/
 # Path to your oh-my-zsh installation.
-#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${ANACONDA_DIR}"/lib
-#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"/usr/lib/x86_64-linux-gnu/hdf5/serial"
-#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${HOME}/intel/oneapi/mkl/2021.1.1/lib/intel64"
 
 #export PATH=${PATH}:/usr/local/go/bin
 export ZSH="${HOME}"/.oh-my-zsh
@@ -113,7 +110,7 @@ source ${ZSH}/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #eval "$(ssh-agent -s)"
 #ssh-add "${HOME}"/.ssh/id_rsa_desktop_ubt1804
-#eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/id_ed25519)
+
 eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/github)
 # please link all local-ssh-file to github to file named `github`
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -121,5 +118,6 @@ eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/github)
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 . "${HOME}"/zsh_include/miniconda3.sh
+. "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 # <<< conda initialize <<<
 
