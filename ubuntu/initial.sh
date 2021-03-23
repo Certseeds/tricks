@@ -61,7 +61,9 @@ main_githubcli() {
     sudo apt update
     sudo apt install gh
 }
-
+main_graphcard(){
+    # fuck `graphics-drivers`, it make 440 shortcut for 450, and 430 shortcut for 440, make drivers can not use at all.
+}
 main_ohmyzsh() {
     # download oh-my-zsh
     sudo apt install zsh -y
