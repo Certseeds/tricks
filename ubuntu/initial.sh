@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 23:11:48
+ # @LastEditTime: 2021-03-23 23:26:45
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -59,6 +59,7 @@ main_jdk_mvn(){
         mv "${settings_xml}" "${settings_xml}.backup"
     fi
     sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
+    sudo update-alternatives --display java
 }
 main_texlive(){
     mkdir -p "${HOME}"/zsh_include
@@ -161,6 +162,7 @@ main_conda(){
     conda create -n pytorch python=3.8
     conda condif --show
     conda update --all
+#   conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.2 -c pytorch
 }
 main_condaconfig() {
     # set origin of anaconda
@@ -184,7 +186,6 @@ main_cuda() {
     sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
     sudo apt update
     sudo apt -y install cuda
-    conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 }
 main_sshd(){
     sudo chown -R 1000:1000  "${HOME}"/.ssh/* # make sure all filex own by normal user
