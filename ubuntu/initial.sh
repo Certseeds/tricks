@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 23:26:45
+ # @LastEditTime: 2021-03-23 23:30:32
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -194,6 +194,10 @@ main_sshd(){
     sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
     sudo ln -s "$(pwd)"/sshd_config /etc/ssh/sshd_config
     # do not forget to ln a *.pub as authorized_keys as login pub key
+}
+main_LD_LIBRARY_PATH(){
+    mkdir -p "${HOME}"/zsh_include
+    sudo ln -s "$(pwd)"/zsh_include/LD_LIBRARY_PATH.sh "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 }
 main_caffe_ssd() {
     sudo apt install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
