@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 18:22:35
+ # @LastEditTime: 2021-03-23 18:59:23
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -61,6 +61,8 @@ main_jdk_mvn(){
     sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
 }
 main_texlive(){
+    mkdir -p "${HOME}"/zsh_include
+    sudo ln -s "$(pwd)"/zsh_include/texlive.sh "${HOME}"/zsh_include/texlive.sh
     origin="$(pwd)"
     mkdir -p ./texlive
     mkdir -p /media/tex
@@ -138,9 +140,26 @@ main_anaconda() {
     sudo chmod 0755 ./"${ANACONDA}"
     sudo ./"${ANACONDA}"
     rm ./"${ANACONDA}"
-    sudo ln -s "$(pwd)"/.condarc "${HOME}"/.condarc
     # TODO press enter && yes now
     # TODO source ~/.zshrc
+}
+main_miniconda(){
+    mkdir -p "${HOME}"/zsh_include
+    MINICONDA="Miniconda3-py38_4.9.2-Linux-x86_64.sh"
+    wget -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/"${MINICONDA}" \
+        --user-agent="${USER_AGENT}" \
+        --no-check-certificate
+    sudo chmod 0755 ./"${ANACONDA}"
+    sudo ./"${ANACONDA}"
+    rm ./"${ANACONDA}"
+    sudo ln -s "$(pwd)"/zsh_include/miniconda3.sh "${HOME}"/zsh_include/miniconda3.sh
+}
+main_conda(){
+    sudo ln -s "$(pwd)"/.condarc "${HOME}"/.condarc
+    conda create -n origin python=3.6
+    conda create -n pytorch python=3.8
+    conda condif --show
+    conda update --all
 }
 main_condaconfig() {
     # set origin of anaconda
@@ -313,6 +332,7 @@ main_index() {
     echo "main_index over"
 }
 main_index "$@"
+exit 0
 # do it after the all cript!
 # TODO source ~/.zshrc;
 # better do it by self: "source ~/.zshrc"

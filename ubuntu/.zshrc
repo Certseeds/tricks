@@ -3,8 +3,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # in ~/
 # Path to your oh-my-zsh installation.
-#ANACONDA_DIR="${HOME}"/anaconda3
-#export PATH="${ANACONDA_DIR}"/bin:"${PATH}"
 #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${ANACONDA_DIR}"/lib
 #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"/usr/lib/x86_64-linux-gnu/hdf5/serial"
 #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:"${HOME}/intel/oneapi/mkl/2021.1.1/lib/intel64"
@@ -12,7 +10,7 @@
 #export PATH=${PATH}:/usr/local/go/bin
 export ZSH="${HOME}"/.oh-my-zsh
 
-. ./zsh_include/texlive.sh
+. "${HOME}"/zsh_include/texlive.sh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -122,16 +120,6 @@ eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/github)
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/nanoseeds/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/nanoseeds/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/nanoseeds/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/nanoseeds/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
+. ./zsh_include/miniconda3.sh
 # <<< conda initialize <<<
 
