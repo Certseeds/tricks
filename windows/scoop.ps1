@@ -46,10 +46,9 @@ $script = {
         sudo mysqld.exe --install
         sudo net start mysql
     }
-    function oh_my_pose {
+    function oh_my_posh {
         sudo Install-Module DirColors
         sudo Install-Module PSReadLine
-        Import-Module oh-my-posh
         # !Dont Forget C:\Users\nanoseeds\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
     }
     #Entry point

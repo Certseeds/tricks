@@ -1,5 +1,5 @@
 # in C:\Users\nanoseeds\Documents\WindowsPowerShell\
-Import-Module DirColors
+Import-Module DirColors 
 Import-Module posh-git
 Import-Module oh-my-posh
 if (!(Test-Path -Path ${PROFILE} )) {
