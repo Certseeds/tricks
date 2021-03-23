@@ -120,6 +120,6 @@ eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/github)
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-. ./zsh_include/miniconda3.sh
+. "${HOME}"/zsh_include/miniconda3.sh
 # <<< conda initialize <<<
 

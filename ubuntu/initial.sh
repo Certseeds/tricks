@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 18:59:23
+ # @LastEditTime: 2021-03-23 20:49:47
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -89,6 +89,7 @@ main_githubcli() {
 main_graphcard(){
     # fuck `graphics-drivers`, it make 440 shortcut for 450, and 430 shortcut for 440, make drivers can not use at all.
     ls
+    # fuck nvidia, in driver 440.100 does not match 440.33, can you believe?
 }
 main_ohmyzsh() {
     # download oh-my-zsh
@@ -197,6 +198,7 @@ main_caffe_ssd() {
       libopenblas-dev liblapack-dev libatlas-base-dev \
       libgflags-dev libgoogle-glog-dev liblmdb-dev
     sudo apt install --no-install-recommends libboost-all-dev 
+    
 }
 
 main_6() {
