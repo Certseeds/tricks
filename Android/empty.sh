@@ -6,15 +6,16 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-03-14 21:50:12
  # @LastEditors: nanoseeds
- # @LastEditTime: 2020-05-26 20:30:04
+ # @LastEditTime: 2021-03-23 23:02:06
 ###
 main() {
     origin_path=$(pwd)
     cd "${1}"
-    list=($(cat ./names.txt))
-    for i in ${list[@]}; do
+    list="($(cat ./names.txt))"
+    for i in "${list[@]}"; do
         touch "${i}"
-        echo "${i}" | base64 >"./${i}"
+        echo "${i}" | base64 > "./${i}"
+        echo "${i}" | md5sum >> "./${i}"
     done
     cd "${origin_path}"
 }
