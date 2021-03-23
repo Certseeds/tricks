@@ -6,8 +6,9 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 17:41:39
+ # @LastEditTime: 2021-03-23 18:22:35
 ###
+USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
     echo "${0} ${1} finish"
 }
@@ -113,11 +114,26 @@ main_ohmyzsh() {
     sudo ln -s "$(pwd)"/.zshrc "${HOME}"/.zshrc
     #
 }
+main_intelmkl(){
+    origin="$(pwd)"
+    mkdir -p ./intelmkl
+    cd ./intelmkl
+    wget  https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+        --user-agent="${USER_AGENT}" \
+        --no-check-certificate
+    sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+    echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+    # or `sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"`
+    sudo apt update
+    sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
+    cd "${origin}"
+    rm -rf ./intelmkl
+}
 main_anaconda() {
     # anaconda
     ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
     proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}" \
-        --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
+        --user-agent="${USER_AGENT}" \
         --no-check-certificate
     sudo chmod 0755 ./"${ANACONDA}"
     sudo ./"${ANACONDA}"
@@ -183,7 +199,7 @@ main_shellcheck() {
     fi
     proxychains4 wget -P "${HOME}"/tmp_install_folder/ \
         https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"  \
-        --user-agent="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3" \
+        --user-agent="${USER_AGENT}" \
         --no-check-certificate
     # Extract
     tar xvf "${HOME}"/tmp_install_folder/"${SHELLCHECK}" -C "${HOME}"/tmp_install_folder

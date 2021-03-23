@@ -12,10 +12,7 @@
 #export PATH=${PATH}:/usr/local/go/bin
 export ZSH="${HOME}"/.oh-my-zsh
 
-#export MANPATH=${MANPATH}:/usr/local/texlive/2020/texmf-dist/doc/man
-#export INFOPATH=${INFOPATH}:/usr/local/texlive/2020/texmf-dist/doc/info
-#export PATH=${PATH}:/usr/local/texlive/2020/bin/x86_64-linux
-
+. ./zsh_include/texlive.sh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
