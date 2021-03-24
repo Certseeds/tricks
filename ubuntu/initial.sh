@@ -6,16 +6,32 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-23 23:30:32
+ # @LastEditTime: 2021-03-24 11:33:19
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
     echo "${0} ${1} finish"
 }
-main_vscode() {
+main_microsoft(){
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >microsoft.gpg
     sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+}
+main_vscode() {
+    main_microsoft
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    sudo rm microsoft.gpg
+    ## Install
+    sudo apt update
+    sudo apt install code
+}
+main_msedge() {
+    ## Setup
+    main_microsoft
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+    sudo rm microsoft.gpg
+    ## Install
+    sudo apt update
+    sudo apt install microsoft-edge-dev
 }
 main_0() {
     #sudo chmod 0777 /usr/bin/screen
@@ -33,25 +49,25 @@ main_1() {
 main_build() {
     sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
         make ffmpeg libssl-dev openssl net-tools vim xclip \
-        proxychains4 exiftool rename aria2 manpages-dev  keychain \
+        proxychains4 exiftool rename aria2 manpages-dev keychain \
         lsb-core openssh-client openssh-server traceroute htop pigz -y
-    if [[  -f "/etc/proxychains4.conf" ]] ;  then
+    if [[ -f "/etc/proxychains4.conf" ]]; then
         rm /etc/proxychains4.conf
     fi
     sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
 }
-main_python3(){
+main_python3() {
     sudo apt install python3-pip
     mkdir -p "${HOME}"/.pip
     pip_file_name="${HOME}/.pip/pip/conf"
-    if [[ -f "${pip_file_name}"  ]]; then
+    if [[ -f "${pip_file_name}" ]]; then
         mv "${pip_file_name}" "${pip_file_name}.back"
     fi
     ln -s "$(pwd)"/pip.conf "${pip_file_name}"
     sudo chmod 0755 "${pip_file_name}"
     sudo pip3 install cmake==3.17.2 numpy
 }
-main_jdk_mvn(){
+main_jdk_mvn() {
     sudo apt install openjdk-11-jdk openjdk-8-jdk maven
     mkdir -p "/etc/maven"
     settings_xml="/etc/maven/settings.xml"
@@ -61,7 +77,7 @@ main_jdk_mvn(){
     sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
     sudo update-alternatives --display java
 }
-main_texlive(){
+main_texlive() {
     mkdir -p "${HOME}"/zsh_include
     sudo ln -s "$(pwd)"/zsh_include/texlive.sh "${HOME}"/zsh_include/texlive.sh
     origin="$(pwd)"
@@ -87,7 +103,7 @@ main_githubcli() {
     sudo apt update
     sudo apt install gh
 }
-main_graphcard(){
+main_graphcard() {
     # fuck `graphics-drivers`, it make 440 shortcut for 450, and 430 shortcut for 440, make drivers can not use at all.
     ls
     # fuck nvidia, in driver 440.100 does not match 440.33, can you believe?
@@ -118,11 +134,11 @@ main_ohmyzsh() {
     sudo ln -s "$(pwd)"/.zshrc "${HOME}"/.zshrc
     #
 }
-main_intelmkl(){
+main_intelmkl() {
     origin="$(pwd)"
     mkdir -p ./intelmkl
     cd ./intelmkl
-    wget  https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+    wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
         --user-agent="${USER_AGENT}" \
         --no-check-certificate
     sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
@@ -145,7 +161,7 @@ main_anaconda() {
     # TODO press enter && yes now
     # TODO source ~/.zshrc
 }
-main_miniconda(){
+main_miniconda() {
     mkdir -p "${HOME}"/zsh_include
     MINICONDA="Miniconda3-py38_4.9.2-Linux-x86_64.sh"
     wget -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/"${MINICONDA}" \
@@ -156,13 +172,13 @@ main_miniconda(){
     rm ./"${ANACONDA}"
     sudo ln -s "$(pwd)"/zsh_include/miniconda3.sh "${HOME}"/zsh_include/miniconda3.sh
 }
-main_conda(){
+main_conda() {
     sudo ln -s "$(pwd)"/.condarc "${HOME}"/.condarc
     conda create -n origin python=3.6
     conda create -n pytorch python=3.8
     conda condif --show
     conda update --all
-#   conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.2 -c pytorch
+    #   conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.2 -c pytorch
 }
 main_condaconfig() {
     # set origin of anaconda
@@ -187,24 +203,24 @@ main_cuda() {
     sudo apt update
     sudo apt -y install cuda
 }
-main_sshd(){
-    sudo chown -R 1000:1000  "${HOME}"/.ssh/* # make sure all filex own by normal user
+main_sshd() {
+    sudo chown -R 1000:1000 "${HOME}"/.ssh/* # make sure all filex own by normal user
     sudo chmod 0700 "${HOME}"/.ssh
     sudo chmod 0600 "${HOME}"/.ssh/*
     sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
     sudo ln -s "$(pwd)"/sshd_config /etc/ssh/sshd_config
     # do not forget to ln a *.pub as authorized_keys as login pub key
 }
-main_LD_LIBRARY_PATH(){
+main_LD_LIBRARY_PATH() {
     mkdir -p "${HOME}"/zsh_include
     sudo ln -s "$(pwd)"/zsh_include/LD_LIBRARY_PATH.sh "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 }
 main_caffe_ssd() {
     sudo apt install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
-      libopenblas-dev liblapack-dev libatlas-base-dev \
-      libgflags-dev libgoogle-glog-dev liblmdb-dev
-    sudo apt install --no-install-recommends libboost-all-dev 
-    
+        libopenblas-dev liblapack-dev libatlas-base-dev \
+        libgflags-dev libgoogle-glog-dev liblmdb-dev
+    sudo apt install --no-install-recommends libboost-all-dev
+
 }
 
 main_6() {
@@ -225,7 +241,7 @@ main_shellcheck() {
         rm -rf "${HOME}"/tmp_install_folder/
     fi
     proxychains4 wget -P "${HOME}"/tmp_install_folder/ \
-        https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}"  \
+        https://github.com/koalaman/shellcheck/releases/download/latest/"${SHELLCHECK}" \
         --user-agent="${USER_AGENT}" \
         --no-check-certificate
     # Extract
@@ -310,17 +326,17 @@ function main_linguist() {
     gem install github-linguist
     # now $(github-linguist --breakdown) can use
 }
-function main_sshkeygen(){
+function main_sshkeygen() {
     pre_path="${HOME}/.ssh/"
     file_name="${pre_path}"/YOUR_FILE_NAME
     github_path="${pre_path}"/github
     ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
     sudo ln -s "${file_name}" "${github_path}"
     sudo ln -s "${file_name}".pub "${github_path}".pub
-    xclip -selection clipboard < "${file_name}".pub
+    xclip -selection clipboard <"${file_name}".pub
     #! DONT FORGET ADD PATH to zshrc
 }
-function main_gpgkeygen(){
+function main_gpgkeygen() {
     gpg --list-secret-keys --keyid-format LONG
 }
 main_114514() {
