@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-24 15:08:24
+ # @LastEditTime: 2021-03-28 16:48:08
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -160,6 +160,7 @@ main_anaconda() {
     rm ./"${ANACONDA}"
     # TODO press enter && yes now
     # TODO source ~/.zshrc
+    sudo ln -s "$(pwd)"/zsh_include/anaconda3.sh "${HOME}"/zsh_include/miniconda3.sh
 }
 main_miniconda() {
     mkdir -p "${HOME}"/zsh_include
@@ -196,7 +197,6 @@ main_cuda() {
     sudo apt install -y ./cuda/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
     sudo apt install -y ./cuda/cuda-repo-ubuntu1804-10-2-local_10.2.1-1_amd64.deb
     sudo apt install -y ./cuda/cuda-repo-ubuntu1804-10-2-local_10.2.2-1_amd64.deb
-    sudo apt install -y ./cuda/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
     sudo apt install -y ./cuda/libcudnn8_8.1.1.33-1+cuda10.2_amd64.deb
     sudo apt install -y ./cuda/libcudnn8-dev_8.1.1.33-1+cuda10.2_amd64.deb
     sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
@@ -216,11 +216,11 @@ main_LD_LIBRARY_PATH() {
     sudo ln -s "$(pwd)"/zsh_include/LD_LIBRARY_PATH.sh "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 }
 main_caffe_ssd() {
+    #! c***f is dead, do not use it anymore.
     sudo apt install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
         libopenblas-dev liblapack-dev libatlas-base-dev \
         libgflags-dev libgoogle-glog-dev liblmdb-dev
     sudo apt install --no-install-recommends libboost-all-dev
-
 }
 
 main_6() {
