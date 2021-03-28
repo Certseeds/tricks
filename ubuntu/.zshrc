@@ -113,11 +113,10 @@ source ${ZSH}/oh-my-zsh.sh
 
 eval $(keychain --eval --agents ssh -Q --quiet "${HOME}"/.ssh/github)
 # please link all local-ssh-file to github to file named `github`
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-. "${HOME}"/zsh_include/miniconda3.sh
+. "${HOME}"/zsh_include/conda3.sh
 . "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 # <<< conda initialize <<<
 
