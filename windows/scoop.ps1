@@ -1,9 +1,9 @@
 $script = {
     $appList = "7zip", "potplayer", 
-    "adoptopenjdk-lts-hotspot" # at least now it is 11
-    , "nodejs", "nvm", "github", 
-    "neatdownloadmanager", "gpg4win", "jetbrains-toolbox", "sudo", "cmake",
-    "dismplusplus", "wox", "everything","aria2","mysql","oh-my-posh";
+    "adopt8-hotspot", "adopt11-hotspot", "nodejs",
+    "nvm", "github", "neatdownloadmanager", "gpg4win",
+    "jetbrains-toolbox", "sudo", "cmake", "dismplusplus",
+    "wox", "everything", "aria2", "mysql", "oh-my-posh";
     $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
     #Main-function
     function main {
@@ -35,7 +35,7 @@ $script = {
             scoop install $item
         }
     }
-    function mysql_setting{
+    function mysql_setting {
         Set-Location ~
         Set-Location ./scoop
         Set-Location ./persist
