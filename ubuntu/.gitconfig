@@ -10,6 +10,7 @@
         checkoutb = checkout -b
 [core]
         editor = vim
+        autocrlf = input
 [gui]
         encoding = utf-8
 [i18n]

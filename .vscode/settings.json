@@ -1,7 +1,7 @@
 {
-    "terminal.integrated.fontFamily":"Menlo",
-    "editor.fontFamily":"Monaco",
-    "debug.console.fontFamily": "Menlo",
+    "terminal.integrated.fontFamily":"Source Code Pro",
+    "editor.fontFamily":"Source Code Pro",
+    "debug.console.fontFamily": "Source Code Pro",
     "editor.fontSize": 14,
     "debug.console.fontSize": 14,
     "window.zoomLevel": 1.0,
