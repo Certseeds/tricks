@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-03-28 16:48:08
+ # @LastEditTime: 2021-04-07 22:32:41
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -76,6 +76,8 @@ main_jdk_mvn() {
     fi
     sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
     sudo update-alternatives --display java
+    sudo update-alternatives --config java
+    sudo update-alternatives --config javac
 }
 main_texlive() {
     mkdir -p "${HOME}"/zsh_include
