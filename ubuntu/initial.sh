@@ -6,13 +6,13 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-04-07 22:32:41
+ # @LastEditTime: 2021-04-17 17:33:31
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
     echo "${0} ${1} finish"
 }
-main_microsoft(){
+main_microsoft() {
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >microsoft.gpg
     sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
 }
@@ -66,6 +66,11 @@ main_python3() {
     ln -s "$(pwd)"/pip.conf "${pip_file_name}"
     sudo chmod 0755 "${pip_file_name}"
     sudo pip3 install cmake==3.17.2 numpy
+}
+main_pdftotext() {
+    sudo apt install libpoppler-cpp-dev pkg-config
+    pip3 install pdftotext # then can import pdftotext
+    sudo apt install poppler-utils # then can run `pdftotext`
 }
 main_jdk_mvn() {
     sudo apt install openjdk-11-jdk openjdk-8-jdk maven
