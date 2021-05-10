@@ -2,9 +2,9 @@
     "terminal.integrated.fontFamily":"Source Code Pro",
     "editor.fontFamily":"Source Code Pro",
     "debug.console.fontFamily": "Source Code Pro",
-    "editor.fontSize": 14,
-    "debug.console.fontSize": 14,
-    "window.zoomLevel": 1.0,
+    // "editor.fontSize": 14,// for ubuntu
+    // "debug.console.fontSize": 14,// for ubuntu
+    // "window.zoomLevel": 1.0,// for ubuntu
     "fileheader.configObj": {
         "createFileTime": true,
         "language": {

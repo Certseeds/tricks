@@ -1,9 +1,22 @@
 $script = {
-    $appList = "7zip", "potplayer", 
-    "adopt8-hotspot", "adopt11-hotspot", "nodejs",
-    "nvm", "github", "neatdownloadmanager", "gpg4win",
-    "jetbrains-toolbox", "sudo", "cmake", "dismplusplus",
-    "wox", "everything", "aria2", "mysql", "oh-my-posh";
+    $appList = 
+    "7zip",
+    "adopt11-hotspot", "adopt14-hotspot", "adopt8-hotspot", "ant", "aria2",
+    "cmake", "colortool",
+    "dismplusplus",
+    "everything", "exiftool",
+    "gh", "github", "go", "gpg4win",
+    "innounp",
+    "jetbrains-toolbox"
+    "kotlin",
+    "maven","miniconda3",
+    "neatdownloadmanager", "neteasemusic", "nodejs","nvm",
+    "officetoolplus",
+    "pdf-xchange-editor","potplayer",
+    "rufus",
+    "spacesniffer","steam","sudo",
+    "unxutils",
+    "which";
     $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
     #Main-function
     function main {
