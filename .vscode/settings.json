@@ -1,7 +1,7 @@
 {
-    "terminal.integrated.fontFamily":"Source Code Pro",
-    "editor.fontFamily":"Source Code Pro",
-    "debug.console.fontFamily": "Source Code Pro",
+    "terminal.integrated.fontFamily":"SauceCodePro NF",
+    "editor.fontFamily":"SauceCodePro NF",
+    "debug.console.fontFamily": "SauceCodePro NF",
     // "editor.fontSize": 14,// for ubuntu
     // "debug.console.fontSize": 14,// for ubuntu
     // "window.zoomLevel": 1.0,// for ubuntu

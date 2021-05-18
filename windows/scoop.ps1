@@ -11,13 +11,13 @@ $script = {
     "kotlin",
     "maven","miniconda3",
     "neatdownloadmanager", "neteasemusic", "nodejs","nvm",
-    "officetoolplus",
-    "pdf-xchange-editor","potplayer",
+    "officetoolplus","oh-my-posh3",
+    "pdf-xchange-editor","potplayer","posh-git"
     "rufus",
-    "spacesniffer","steam","sudo",
+    "spacesniffer","steam","sudo","SourceCodePro-NF"
     "unxutils",
     "which";
-    $scoop_bucket_list = "extras", "java", "dorado https://github.com/chawyehsu/dorado";
+    $scoop_bucket_list = "extras", "java","nerd-fonts","dorado https://github.com/chawyehsu/dorado";
     #Main-function
     function main {
         #starting helper function
@@ -60,6 +60,7 @@ $script = {
         sudo net start mysql
     }
     function oh_my_posh {
+        Install-Module oh-my-posh -Scope CurrentUser # download by powershell
         sudo Install-Module DirColors
         sudo Install-Module PSReadLine
         # !Dont Forget C:\Users\nanoseeds\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1

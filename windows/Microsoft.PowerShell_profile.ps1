@@ -1,8 +1,4 @@
-# in C:\Users\nanoseeds\Documents\WindowsPowerShell\
-Import-Module DirColors 
-Import-Module posh-git
-Import-Module oh-my-posh
-if (!(Test-Path -Path ${PROFILE} )) {
-    New-Item -Type File -Path ${PROFILE} -Force 
-}
-Set-Theme ys
+Import-Module PSReadLine
+Import-Module DirColors
+Invoke-Expression (oh-my-posh --init --shell pwsh --config ~/.poshtheme.json)
+# dont forget to set the windows-terminal's default font to SauceCodePro NF
