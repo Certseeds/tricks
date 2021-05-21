@@ -1,0 +1,4 @@
+[cargo-new]
+name = "Certseeds"        # name to use in `authors` field
+email = "Certseeds <51754303+Certseeds@users.noreply.github.com>" # email address to use in `authors` field
+vcs = "git"              # VCS to use ('git', 'hg', 'pijul', 'fossil', 'none')
