@@ -1,20 +1,20 @@
 $script = {
-    $appList = 
+    $appList =
     "7zip",
     "adopt11-hotspot", "adopt14-hotspot", "adopt8-hotspot", "ant", "aria2",
     "cmake", "colortool",
-    "dismplusplus",
+    "dark","dismplusplus",
     "everything", "exiftool",
-    "gh", "github", "go", "gpg4win",
+    "gh", "github", "go", "gpg4win","gradle"
     "innounp",
     "jetbrains-toolbox"
     "kotlin",
-    "maven","miniconda3",
+    "maven","miniconda3","mysql",
     "neatdownloadmanager", "neteasemusic", "nodejs","nvm",
     "officetoolplus","oh-my-posh3",
     "pdf-xchange-editor","potplayer","posh-git"
-    "rufus",
-    "spacesniffer","steam","sudo","SourceCodePro-NF"
+    "rufus","rustup-msvc",
+    "spacesniffer","steam","sudo","SourceCodePro-NF","Source-Han-Sans-SC","Source-Han-Serif-SC",
     "unxutils",
     "which";
     $scoop_bucket_list = "extras", "java","nerd-fonts","dorado https://github.com/chawyehsu/dorado";
