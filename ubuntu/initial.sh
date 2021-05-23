@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-04-17 17:33:31
+ # @LastEditTime: 2021-05-23 14:01:26
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -47,7 +47,7 @@ main_1() {
     main_0
 }
 main_build() {
-    sudo apt install git build-essential curl wget screen gdb zip tree screenfetch \
+    sudo apt install git build-essential curl wget screen gdb zip tree neofetch \
         make ffmpeg libssl-dev openssl net-tools vim xclip transmission \
         proxychains4 exiftool rename aria2 manpages-dev keychain \
         lsb-core openssh-client openssh-server traceroute htop pigz -y
