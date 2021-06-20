@@ -6,9 +6,10 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-06-14 15:01:58
+ # @LastEditTime: 2021-06-20 22:34:15
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
+UBUNTU_VERSION="$(lsb_release -c | sed 's/Codename://g' | xargs)"
 finish() {
     echo "${0} ${1} finish"
 }
@@ -60,11 +61,11 @@ main_build() {
 main_cmake() {
     sudo apt install apt-transport-https ca-certificates gnupg software-properties-common wget
     wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
-    sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+    sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ ${UBUNTU_VERSION} main"
     sudo apt update
     sudo apt-cache policy cmake
     sudo apt-cache policy cmake-data
-    CMAKE_VERSION="3.17.2-0kitware1ubuntu20.04.1"
+    CMAKE_VERSION="3.17.2-0kitware1ubuntu20.04.1" # TODO
     sudo apt install cmake-data="${CMAKE_VERSION}" cmake="${CMAKE_VERSION}"
 }
 main_python3() {
