@@ -65,6 +65,10 @@ $script = {
         sudo Install-Module PSReadLine
         # !Dont Forget C:\Users\nanoseeds\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
     }
+    function install {
+        set-executionpolicy remotesigned -scope currentuser
+        iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    }
     #Entry point
     main
 }

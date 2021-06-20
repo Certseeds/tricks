@@ -8,6 +8,7 @@
 [alias]
         commits = commit -s
         checkoutb = checkout -b
+        merge = merge --no-ff
 [core]
         editor = vim
         autocrlf = input

@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-05-23 14:01:26
+ # @LastEditTime: 2021-06-14 15:01:58
 ###
 USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 finish() {
@@ -47,14 +47,25 @@ main_1() {
     main_0
 }
 main_build() {
-    sudo apt install git build-essential curl wget screen gdb zip tree neofetch \
-        make ffmpeg libssl-dev openssl net-tools vim xclip transmission \
+    sudo apt install git build-essential manpages-dev \
+        make ffmpeg libssl-dev openssl net-tools vim xclip \
+        curl wget screen gdb zip tree neofetch transmission \
         proxychains4 exiftool rename aria2 manpages-dev keychain \
         lsb-core openssh-client openssh-server traceroute htop pigz -y
     if [[ -f "/etc/proxychains4.conf" ]]; then
         rm /etc/proxychains4.conf
     fi
     sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
+}
+main_cmake() {
+    sudo apt install apt-transport-https ca-certificates gnupg software-properties-common wget
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+    sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+    sudo apt update
+    sudo apt-cache policy cmake
+    sudo apt-cache policy cmake-data
+    CMAKE_VERSION="3.17.2-0kitware1ubuntu20.04.1"
+    sudo apt install cmake-data="${CMAKE_VERSION}" cmake="${CMAKE_VERSION}"
 }
 main_python3() {
     sudo apt install python3-pip
@@ -65,11 +76,11 @@ main_python3() {
     fi
     ln -s "$(pwd)"/pip.conf "${pip_file_name}"
     sudo chmod 0755 "${pip_file_name}"
-    sudo pip3 install cmake==3.17.2 numpy
+    sudo pip3 install numpy
 }
 main_pdftotext() {
     sudo apt install libpoppler-cpp-dev pkg-config
-    pip3 install pdftotext # then can import pdftotext
+    pip3 install pdftotext         # then can import pdftotext
     sudo apt install poppler-utils # then can run `pdftotext`
 }
 main_jdk_mvn() {
@@ -171,13 +182,13 @@ main_anaconda() {
 }
 main_miniconda() {
     mkdir -p "${HOME}"/zsh_include
-    MINICONDA="Miniconda3-py38_4.9.2-Linux-x86_64.sh"
+    MINICONDA="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
     wget -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/"${MINICONDA}" \
         --user-agent="${USER_AGENT}" \
         --no-check-certificate
-    sudo chmod 0755 ./"${ANACONDA}"
-    sudo ./"${ANACONDA}"
-    rm ./"${ANACONDA}"
+    sudo chmod 0755 ./"${MINICONDA}"
+    ./"${MINICONDA}"
+    rm ./"${MINICONDA}"
     sudo ln -s "$(pwd)"/zsh_include/miniconda3.sh "${HOME}"/zsh_include/miniconda3.sh
 }
 main_conda() {
@@ -326,7 +337,6 @@ main_nodejs() {
 }
 main_13() {
     sudo ln -s "$(pwd)"/init.wsl /etc/init.wsl
-
 }
 function main_linguist() {
     sudo apt install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
