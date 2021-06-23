@@ -8,10 +8,11 @@
 [alias]
         commits = commit -s
         checkoutb = checkout -b
-        merge = merge --no-ff
+        mergeno = merge --no-ff
 [core]
         editor = vim
         autocrlf = input
+        ignorecase = false
 [gui]
         encoding = utf-8
 [i18n]
