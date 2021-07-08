@@ -69,6 +69,9 @@ $script = {
         set-executionpolicy remotesigned -scope currentuser
         iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
     }
+    function rustupsetup {
+        rustup default stable
+    }
     #Entry point
     main
 }

@@ -6,10 +6,10 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-06-20 22:34:15
+ # @LastEditTime: 2021-07-01 19:40:47
 ###
-USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
-UBUNTU_VERSION="$(lsb_release -c | sed 's/Codename://g' | xargs)"
+readonly USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
+readonly UBUNTU_VERSION="$(lsb_release -c | sed 's/Codename://g' | xargs)"
 finish() {
     echo "${0} ${1} finish"
 }
@@ -58,6 +58,13 @@ main_build() {
     fi
     sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
 }
+main_newergcc() {
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    sudo apt-get update
+    readonly GCC_VERSION=11
+    sudo apt-get install gcc-"${GCC_VERSION}" g++-"${GCC_VERSION}"
+    gcc-"${GCC_VERSION}" --version
+}
 main_cmake() {
     sudo apt install apt-transport-https ca-certificates gnupg software-properties-common wget
     wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
@@ -65,13 +72,15 @@ main_cmake() {
     sudo apt update
     sudo apt-cache policy cmake
     sudo apt-cache policy cmake-data
-    CMAKE_VERSION="3.17.2-0kitware1ubuntu20.04.1" # TODO
+    # readonly CMAKE_VERSION="3.19.5-0kitware1ubuntu20.04.1" # for ubuntu 2004
+    readonly CMAKE_VERSION="3.19.5-0kitware1" # for ubuntu 1804
     sudo apt install cmake-data="${CMAKE_VERSION}" cmake="${CMAKE_VERSION}"
+    sudo apt-mark hold cmake cmake-data
 }
 main_python3() {
     sudo apt install python3-pip
     mkdir -p "${HOME}"/.pip
-    pip_file_name="${HOME}/.pip/pip/conf"
+    readonly pip_file_name="${HOME}/.pip/pip/conf"
     if [[ -f "${pip_file_name}" ]]; then
         mv "${pip_file_name}" "${pip_file_name}.back"
     fi
@@ -87,7 +96,7 @@ main_pdftotext() {
 main_jdk_mvn() {
     sudo apt install openjdk-11-jdk openjdk-8-jdk maven
     mkdir -p "/etc/maven"
-    settings_xml="/etc/maven/settings.xml"
+    readonly settings_xml="/etc/maven/settings.xml"
     if [[ -f "${settings_xml}" ]]; then
         mv "${settings_xml}" "${settings_xml}.backup"
     fi
@@ -99,7 +108,7 @@ main_jdk_mvn() {
 main_texlive() {
     mkdir -p "${HOME}"/zsh_include
     sudo ln -s "$(pwd)"/zsh_include/texlive.sh "${HOME}"/zsh_include/texlive.sh
-    origin="$(pwd)"
+    readonly origin="$(pwd)"
     mkdir -p ./texlive
     mkdir -p /media/tex
     sudo mount -t auto -o loop ./texlive.iso /media/tex
@@ -154,7 +163,7 @@ main_ohmyzsh() {
     #
 }
 main_intelmkl() {
-    origin="$(pwd)"
+    readonly origin="$(pwd)"
     mkdir -p ./intelmkl
     cd ./intelmkl
     wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
@@ -170,7 +179,7 @@ main_intelmkl() {
 }
 main_anaconda() {
     # anaconda
-    ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
+    readonly ANACONDA="Anaconda3-2020.07-Linux-x86_64.sh"
     proxychains4 wget -c https://repo.anaconda.com/archive/"${ANACONDA}" \
         --user-agent="${USER_AGENT}" \
         --no-check-certificate
@@ -183,7 +192,7 @@ main_anaconda() {
 }
 main_miniconda() {
     mkdir -p "${HOME}"/zsh_include
-    MINICONDA="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
+    readonly MINICONDA="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
     wget -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/"${MINICONDA}" \
         --user-agent="${USER_AGENT}" \
         --no-check-certificate
@@ -251,8 +260,8 @@ main_6() {
     sudo service ssh restart
 }
 main_shellcheck() {
-    envi=$(pwd)
-    SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
+    readonly envi=$(pwd)
+    readonly SHELLCHECK="shellcheck-latest.linux.x86_64.tar.xz"
     cd "${HOME}"/
     if [[ ! -d "${HOME}/tmp_install_folder/" ]]; then
         mkdir -p "${HOME}"/tmp_install_folder/
@@ -296,7 +305,7 @@ main_opencv3() {
 }
 main_go() {
     # set go
-    envi=$(pwd)
+    readonly envi=$(pwd)
     cd "${HOME}"
     GO_FILE_NAME="go1.15.linux-amd64.tar.gz"
     pcf wget https://golang.org/dl/"${GO_FILE_NAME}"
@@ -341,13 +350,15 @@ main_13() {
 }
 function main_linguist() {
     sudo apt install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
+    gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
+    gem sources -l
     gem install github-linguist
     # now $(github-linguist --breakdown) can use
 }
 function main_sshkeygen() {
-    pre_path="${HOME}/.ssh/"
-    file_name="${pre_path}"/YOUR_FILE_NAME
-    github_path="${pre_path}"/github
+    readonly pre_path="${HOME}/.ssh/"
+    readonly file_name="${pre_path}"/YOUR_FILE_NAME
+    readonly github_path="${pre_path}"/github
     ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
     sudo ln -s "${file_name}" "${github_path}"
     sudo ln -s "${file_name}".pub "${github_path}".pub
