@@ -60,10 +60,8 @@ $script = {
         sudo net start mysql
     }
     function oh_my_posh {
-        Install-Module oh-my-posh -Scope CurrentUser # download by powershell
-        sudo Install-Module DirColors
-        sudo Install-Module PSReadLine
-        # !Dont Forget C:\Users\nanoseeds\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+        Install-Module -Name PSReadLine -Scope CurrentUser -Force
+        Install-Module -Name DirColors -Scope CurrentUser -Force
     }
     function install {
         set-executionpolicy remotesigned -scope currentuser

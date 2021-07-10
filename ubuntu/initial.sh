@@ -6,7 +6,7 @@ set -eoux pipefail
 # @Author: nanoseeds
 # @Date: 2020-02-14 12:03:47
  # @LastEditors: nanoseeds
- # @LastEditTime: 2021-07-01 19:40:47
+ # @LastEditTime: 2021-07-10 10:41:22
 ###
 readonly USER_AGENT="Mozilla/5.0 (X11;U;Linux i686;en-US;rv:1.9.0.3) Geco/2008092416 Firefox/3.0.3"
 readonly UBUNTU_VERSION="$(lsb_release -c | sed 's/Codename://g' | xargs)"
@@ -43,7 +43,6 @@ main_0() {
 main_1() {
     # backup so
     sudo mv /etc/apt/sources.list /etc/apt/sources.list.backup
-    #sudo ln -s "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list # this seems do not work on wsl
     sudo cp "$(pwd)"/source_aliyun_1804.list /etc/apt/sources.list
     main_0
 }
@@ -56,7 +55,6 @@ main_build() {
     if [[ -f "/etc/proxychains4.conf" ]]; then
         rm /etc/proxychains4.conf
     fi
-    sudo ln -s "$(pwd)"/proxychains4.conf /etc/proxychains4.conf
 }
 main_newergcc() {
     sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -100,14 +98,12 @@ main_jdk_mvn() {
     if [[ -f "${settings_xml}" ]]; then
         mv "${settings_xml}" "${settings_xml}.backup"
     fi
-    sudo ln -s "$(pwd)"/settings.xml "${settings_xml}"
     sudo update-alternatives --display java
     sudo update-alternatives --config java
     sudo update-alternatives --config javac
 }
 main_texlive() {
     mkdir -p "${HOME}"/zsh_include
-    sudo ln -s "$(pwd)"/zsh_include/texlive.sh "${HOME}"/zsh_include/texlive.sh
     readonly origin="$(pwd)"
     mkdir -p ./texlive
     mkdir -p /media/tex
@@ -122,7 +118,6 @@ main_texlive() {
 main_git() {
     cp ./.gitconfig "${HOME}"/.gitconfig
     mkdir -p "${HOME}"/template
-    sudo ln -s "$(pwd)"/.gitcommit "${HOME}"/template/.gitcommit
 }
 main_githubcli() {
     sudo apt install software-properties-common
@@ -159,8 +154,6 @@ main_ohmyzsh() {
         sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-syntax-highlighting
         sudo chmod 0755 "${HOME}"/.oh-my-zsh/plugins/zsh-autosuggestions
     }
-    sudo ln -s "$(pwd)"/.zshrc "${HOME}"/.zshrc
-    #
 }
 main_intelmkl() {
     readonly origin="$(pwd)"
@@ -188,7 +181,6 @@ main_anaconda() {
     rm ./"${ANACONDA}"
     # TODO press enter && yes now
     # TODO source ~/.zshrc
-    sudo ln -s "$(pwd)"/zsh_include/anaconda3.sh "${HOME}"/zsh_include/miniconda3.sh
 }
 main_miniconda() {
     mkdir -p "${HOME}"/zsh_include
@@ -199,10 +191,8 @@ main_miniconda() {
     sudo chmod 0755 ./"${MINICONDA}"
     ./"${MINICONDA}"
     rm ./"${MINICONDA}"
-    sudo ln -s "$(pwd)"/zsh_include/miniconda3.sh "${HOME}"/zsh_include/miniconda3.sh
 }
 main_conda() {
-    sudo ln -s "$(pwd)"/.condarc "${HOME}"/.condarc
     conda create -n origin python=3.6
     conda create -n pytorch python=3.8
     conda condif --show
@@ -236,12 +226,10 @@ main_sshd() {
     sudo chmod 0700 "${HOME}"/.ssh
     sudo chmod 0600 "${HOME}"/.ssh/*
     sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-    sudo ln -s "$(pwd)"/sshd_config /etc/ssh/sshd_config
     # do not forget to ln a *.pub as authorized_keys as login pub key
 }
 main_LD_LIBRARY_PATH() {
     mkdir -p "${HOME}"/zsh_include
-    sudo ln -s "$(pwd)"/zsh_include/LD_LIBRARY_PATH.sh "${HOME}"/zsh_include/LD_LIBRARY_PATH.sh
 }
 main_caffe_ssd() {
     #! c***f is dead, do not use it anymore.
@@ -345,9 +333,6 @@ main_nodejs() {
     curl -sL https://deb.nodesource.com/setup_"${main_version_of_nodejs}".x | sudo -E bash -
     sudo apt install -y nodejs
 }
-main_13() {
-    sudo ln -s "$(pwd)"/init.wsl /etc/init.wsl
-}
 function main_linguist() {
     sudo apt install pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev
     gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
@@ -358,10 +343,7 @@ function main_linguist() {
 function main_sshkeygen() {
     readonly pre_path="${HOME}/.ssh/"
     readonly file_name="${pre_path}"/YOUR_FILE_NAME
-    readonly github_path="${pre_path}"/github
     ssh-keygen -t ed25519 -C "nanoseedskc@gmail.com" -f "${file_name}"
-    sudo ln -s "${file_name}" "${github_path}"
-    sudo ln -s "${file_name}".pub "${github_path}".pub
     xclip -selection clipboard <"${file_name}".pub
     #! DONT FORGET ADD PATH to zshrc
 }
