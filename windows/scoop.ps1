@@ -62,6 +62,7 @@ $script = {
     function oh_my_posh {
         Install-Module -Name PSReadLine -Scope CurrentUser -Force
         Install-Module -Name DirColors -Scope CurrentUser -Force
+        $PROFILE | Get-Member -Type NoteProperty
     }
     function install {
         set-executionpolicy remotesigned -scope currentuser
